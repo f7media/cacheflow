@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
-	<file source-language="en" datatype="plaintext" original="EXT:f7cacheflow/Resources/Private/Language/locallang.xlf" date="2023-07-03T08:40:42Z" product-name="f7cacheflow">
+	<file source-language="en" datatype="plaintext" original="EXT:cacheflow/Resources/Private/Language/locallang.xlf" date="2023-07-03T08:40:42Z" product-name="cacheflow">
 		<header/>
 		<body>
-			<trans-unit id="widgets.f7cacheflow.title" resname="widgets.f7cacheflow.title" approved="yes">
+			<trans-unit id="widgets.cacheflow.title" resname="widgets.cacheflow.title" approved="yes">
 				<source>CacheFlow Information</source>
 			</trans-unit>
-			<trans-unit id="widgets.f7cacheflow.description" resname="widgets.f7cacheflow.description" approved="yes">
+			<trans-unit id="widgets.cacheflow.description" resname="widgets.cacheflow.description" approved="yes">
 				<source>Show current status and statistics of the cache flow process.</source>
 			</trans-unit>
 			<trans-unit id="widget.statistics.title" resname="widget.statistics.title" approved="yes">

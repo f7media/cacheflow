@@ -2,15 +2,15 @@
 <f:layout name="Widget/Widget"/>
 <f:section name="main">
     <div class="text-center">
-        <img src="{f:uri.resource(path: 'Backend/Images/f7cacheflow.svg', extensionName: 'f7cacheflow')}"
+        <img src="{f:uri.resource(path: 'Icons/Extension.svg', extensionName: 'cacheflow')}"
              class="widget-f7information-logo"
-             alt="F7 CacheFlow Logo"/>
+             alt="CacheFlow Logo"/>
     </div>
-    <div class="widget-f7cacheflow-text">
-        <h2><f:translate key="widget.statistics.title" extensionName="f7cacheflow"/></h2>
+    <div class="widget-cacheflow-text">
+        <h2><f:translate key="widget.statistics.title" extensionName="cacheflow"/></h2>
         <ul>
             <f:for key="key" as="entry" each="{statistics}">
-                <li><strong><f:translate key="widget.statistics.{key}" extensionName="f7cacheflow"/></strong>: {entry}</li>
+                <li><strong><f:translate key="widget.statistics.{key}" extensionName="cacheflow"/></strong>: {entry}</li>
             </f:for>
         </ul>
     </div>

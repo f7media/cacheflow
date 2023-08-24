@@ -7,16 +7,16 @@ services:
   F7\Cacheflow\:
     resource: '../Classes/*'
 
-  dashboard.widget.f7cacheflow:
-    class: 'F7\Cacheflow\Widgets\F7CacheFlowOverviewWidget'
+  dashboard.widget.cacheflow:
+    class: 'F7\Cacheflow\Widgets\CacheFlowOverviewWidget'
     arguments:
       $options: []
     tags:
       - name: dashboard.widget
-        identifier: 'f7cacheflow'
+        identifier: 'cacheflow'
         groupNames: 'general'
-        title: 'LLL:EXT:f7cacheflow/Resources/Private/Language/locallang.xlf:widgets.f7cacheflow.title'
-        description: 'LLL:EXT:f7cacheflow/Resources/Private/Language/locallang.xlf:widgets.f7cacheflow.description'
+        title: 'LLL:EXT:cacheflow/Resources/Private/Language/locallang.xlf:widgets.cacheflow.title'
+        description: 'LLL:EXT:cacheflow/Resources/Private/Language/locallang.xlf:widgets.cacheflow.description'
         iconIdentifier: 'content-widget-text'
         height: 'medium'
         width: 'small'

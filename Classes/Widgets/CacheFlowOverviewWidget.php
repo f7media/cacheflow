@@ -12,7 +12,7 @@ use TYPO3\CMS\Dashboard\Widgets\RequestAwareWidgetInterface;
 use TYPO3\CMS\Dashboard\Widgets\WidgetConfigurationInterface;
 use TYPO3\CMS\Dashboard\Widgets\WidgetInterface;
 
-class F7CacheFlowOverviewWidget implements WidgetInterface, RequestAwareWidgetInterface
+class CacheFlowOverviewWidget implements WidgetInterface, RequestAwareWidgetInterface
 {
     private ServerRequestInterface $request;
 
@@ -35,7 +35,7 @@ class F7CacheFlowOverviewWidget implements WidgetInterface, RequestAwareWidgetIn
 
     public function renderWidgetContent(): string
     {
-        $view = $this->backendViewFactory->create($this->request, ['typo3/cms-dashboard', 'f7/f7cacheflow']);
+        $view = $this->backendViewFactory->create($this->request, ['typo3/cms-dashboard', 'f7/cacheflow']);
         $statisticsService = GeneralUtility::makeInstance(StatisticsService::class);
 
         $view->assignMultiple([
@@ -43,7 +43,7 @@ class F7CacheFlowOverviewWidget implements WidgetInterface, RequestAwareWidgetIn
             'configuration' => $this->configuration,
             'statistics' => $statisticsService->composeStatisticsOutput(),
         ]);
-        return $view->render('Widget/F7CacheFlowOverviewWidget');
+        return $view->render('Widget/CacheFlowOverviewWidget');
     }
 
     /**

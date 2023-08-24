@@ -1,49 +1,61 @@
 {
-	"name": "f7/cacheflow",
-	"type": "typo3-cms-extension",
-	"description": "Smart cache warmup.",
-	"version": "1.0.0",
-	"require": {
-		"typo3/cms-core": "^12.4",
-		"typo3/cms-backend": "^12.4",
-		"typo3/cms-extbase": "^12.4",
-		"typo3/cms-dashboard": "^12.4"
-	},
-	"require-dev": {
-		"codeception/codeception": "5.0.10",
-		"codeception/module-asserts": "3.0.0",
-		"codeception/module-db": "3.1.0",
-		"codeception/module-phpbrowser": "3.0.0",
-		"codeception/module-webdriver": "4.0.0",
-		"friendsofphp/php-cs-fixer": "3.20.0",
-		"helmich/typo3-typoscript-lint": "3.1.0",
-		"janhelke/codeception-email-mailhog": "2.0.0",
-		"michielroos/typo3scan": "1.7.7",
-		"phpstan/phpstan": "1.10.21",
-		"ssch/typo3-rector": "1.3.4"
-	},
-	"extra": {
-		"typo3/cms": {
-			"app-dir": "CI/Build",
-			"web-dir": "CI/Build/public",
-			"extension-key": "cacheflow"
-		}
-	},
-	"autoload": {
-		"psr-4": {
-			"F7\\Cacheflow\\": "Classes/"
-		}
-	},
-	"scripts": {
-		"link-extension": [
-			"@php -r 'is_dir($extFolder=__DIR__.\"/CI/Build/public/typo3conf/ext/\") || mkdir($extFolder, 0777, true);'",
-			"@php -r 'file_exists($extFolder=__DIR__.\"/CI/Build/public/typo3conf/ext/cacheflow\") || symlink(__DIR__,$extFolder);'"
-		]
-	},
-	"config": {
-		"allow-plugins": {
-			"typo3/class-alias-loader": true,
-			"typo3/cms-composer-installers": true
-		}
-	}
+    "name": "f7/cacheflow",
+    "type": "typo3-cms-extension",
+    "description": "Smart cache warmup.",
+    "homepage": "https://www.f7.de",
+    "license": [
+        "GPL-2.0-or-later"
+    ],
+    "require": {
+        "typo3/cms-core": "^12.4",
+        "typo3/cms-backend": "^12.4",
+        "typo3/cms-extbase": "^12.4",
+        "typo3/cms-dashboard": "^12.4"
+    },
+    "autoload": {
+        "psr-4": {
+            "F7\\Cacheflow\\": "Classes/"
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "config": {
+        "vendor-dir": ".Build/vendor",
+        "bin-dir": ".Build/bin",
+        "allow-plugins": {
+            "typo3/class-alias-loader": true,
+            "typo3/cms-composer-installers": true
+        }
+    },
+    "require-dev": {
+        "codeception/codeception": "5.0.10",
+        "codeception/module-asserts": "3.0.0",
+        "codeception/module-db": "3.1.0",
+        "codeception/module-phpbrowser": "3.0.0",
+        "codeception/module-webdriver": "4.0.0",
+        "friendsofphp/php-cs-fixer": "3.20.0",
+        "helmich/typo3-typoscript-lint": "3.1.0",
+        "janhelke/codeception-email-mailhog": "2.0.0",
+        "michielroos/typo3scan": "1.7.7",
+        "phpstan/phpstan": "1.10.21",
+        "ssch/typo3-rector": "1.3.4"
+    },
+    "replace": {
+        "typo3-ter/container": "self.version"
+    },
+    "scripts": {
+        "prepare-tests": [
+            "if [ ! -e .Build/Web/typo3conf/ext/container_example -a -e .Build/Web/typo3conf/ext ]; then cd .Build/Web/typo3conf/ext && ln -s ../../../vendor/b13/container-example container_example && cd -; fi",
+            "if [ ! -e .Build/Web/typo3conf/ext/content_defender -a -e .Build/vendor/ichhabrecht/content-defender -a -e .Build/Web/typo3conf/ext ]; then cd .Build/Web/typo3conf/ext && ln -s ../../../vendor/ichhabrecht/content-defender content_defender && cd -; fi",
+            "if [ ! -e .Build/Web/typo3conf/sites -a -e .Build/Web/typo3conf ]; then cd .Build/Web/typo3conf && ln -s ../../../Build/sites && cd -; fi"
+        ]
+    },
+    "extra": {
+        "typo3/cms": {
+            "cms-package-dir": "{$vendor-dir}/typo3/cms",
+            "web-dir": ".Build/Web",
+            "app-dir": ".Build",
+            "extension-key": "cacheflow"
+        }
+    }
 }

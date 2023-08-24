@@ -2,10 +2,10 @@
 
 return [
     'default' => [
-        'title' => 'LLL:EXT:f7cacheflow/Resources/Private/Language/locallang.xlf:widgets.f7cacheflow.title',
-        'description' => 'LLL:EXT:f7cacheflow/Resources/Private/Language/locallang.xlf:widgets.f7cacheflow.description',
+        'title' => 'LLL:EXT:cacheflow/Resources/Private/Language/locallang.xlf:widgets.cacheflow.title',
+        'description' => 'LLL:EXT:cacheflow/Resources/Private/Language/locallang.xlf:widgets.cacheflow.description',
         'iconIdentifier' => 'content-dashboard',
-        'defaultWidgets' => ['f7information', 'f7cacheflow', 't3news'],
+        'defaultWidgets' => ['cacheflow', 't3news'],
         'showInWizard' => true,
     ],
 ];

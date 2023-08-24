@@ -13,5 +13,5 @@ services:
   F7\Cacheflow\Command\FlowCacheCommand:
     tags:
       - name: 'console.command'
-        command: 'f7cacheflow:process'
+        command: 'cacheflow:process'
         description: 'Regenerates cached pages'

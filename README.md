@@ -1,8 +1,8 @@
 =========
-f7cacheflow Extension
+cacheflow Extension
 =========
 
-The "f7cacheflow" extension provides a cache management solution for TYPO3 CMS, allowing you to flow the pages cache and
+The "cacheflow" extension provides a cache management solution for TYPO3 CMS, allowing you to flow the pages cache and
 keep it up-to-date. It includes a CLI-command that can be executed from the command-line directly as well as be invoked
 as Scheduler task. This process aims to ensure that the cache is always up-to-date and delivers the latest content to
 your TYPO3 website visitors.
@@ -31,22 +31,22 @@ Composer
 
 The installation via composer is recommended.
 
-    $ composer require f7/f7cacheflow
+    $ composer require f7/cacheflow
 
 TYPO3 Extension Repository
 --------------------------
 
-For non-composer projects, the extension is available in TER as extension key ``f7cacheflow`` and can be installed using
+For non-composer projects, the extension is available in TER as extension key ``cacheflow`` and can be installed using
 the extension manager.
 
 Usage
 =====
 
-The "f7cacheflow" extension provides a command-line interface (CLI) command called `f7cacheflow:process` for cache
+The "cacheflow" extension provides a command-line interface (CLI) command called `cacheflow:process` for cache
 flowing operations. To execute the command, open a terminal or command prompt and navigate to the root directory of your
 TYPO3 installation. Then run the following command
 
-      $ bin/typo3 f7cacheflow:process
+      $ bin/typo3 cacheflow:process
 
 Options
 ---------------

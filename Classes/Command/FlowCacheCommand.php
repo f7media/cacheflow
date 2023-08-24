@@ -40,7 +40,7 @@ class FlowCacheCommand extends Command
 
         $pageRepository = GeneralUtility::makeInstance(PageRepository::class);
         $registry = GeneralUtility::makeInstance(Registry::class);
-        $lastRun = (int)$registry->get('tx_f7cacheflow', 'FlowCacheCommand_lastRun', 0);
+        $lastRun = (int)$registry->get('tx_cacheflow', 'FlowCacheCommand_lastRun', 0);
         $batchSize = ((int)$input->getArgument('batchSize') > 0) ? (int)$input->getArgument('batchSize') : 50;
         $includeContentUpdates = $input->getOption('force-content');
 
@@ -53,7 +53,7 @@ class FlowCacheCommand extends Command
         $flowCacheService = GeneralUtility::makeInstance(FlowCacheService::class);
         $flowCacheService->processPages(array_merge($pagesWithPrio, $fillUpPages));
 
-        $registry->set('tx_f7cacheflow', 'FlowCacheCommand_lastRun', date('U'));
+        $registry->set('tx_cacheflow', 'FlowCacheCommand_lastRun', date('U'));
         $executionTime = microtime(true) - $startTime;
         (new StatisticsService())->updateStatisticsInRegistry($batchSize, $executionTime);
         $messageTitle = 'Page cache has successfully been flowed.';

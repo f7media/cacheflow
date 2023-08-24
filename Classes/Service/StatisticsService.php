@@ -25,7 +25,7 @@ class StatisticsService
      */
     public function updateStatisticsInRegistry(int $batchSize, float $executionTime): void
     {
-        $storedValues = $this->registry->get('tx_f7cacheflow', 'FlowCacheStatistics_storage');
+        $storedValues = $this->registry->get('tx_cacheflow', 'FlowCacheStatistics_storage');
         $currentStatistics = [
             'lastCompletedRun' => date('U'),
             'currentBatchSize' => $batchSize,
@@ -39,7 +39,7 @@ class StatisticsService
             $currentStatistics['averageExecutionTime'] = $executionTime;
         }
 
-        $this->registry->set('tx_f7cacheflow', 'FlowCacheStatistics_storage', json_encode($currentStatistics));
+        $this->registry->set('tx_cacheflow', 'FlowCacheStatistics_storage', json_encode($currentStatistics));
     }
 
     /**
@@ -48,7 +48,7 @@ class StatisticsService
      */
     public function composeStatisticsOutput(): array
     {
-        $statistics = json_decode($this->registry->get('tx_f7cacheflow', 'FlowCacheStatistics_storage'), true);
+        $statistics = json_decode($this->registry->get('tx_cacheflow', 'FlowCacheStatistics_storage'), true);
         $output = [
             'currentBatchSize' => $statistics['currentBatchSize'],
             'lastCompletedRun' => date('d.m.Y H:s', (int)$statistics['lastCompletedRun']),
