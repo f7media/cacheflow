@@ -1,0 +1,17 @@
+imports:
+  - { resource: Backend/DashboardWidgets.yaml }
+
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    public: false
+
+  F7\Cacheflow\:
+    resource: '../Classes/*'
+
+  F7\Cacheflow\Command\FlowCacheCommand:
+    tags:
+      - name: 'console.command'
+        command: 'f7cacheflow:process'
+        description: 'Regenerates cached pages'

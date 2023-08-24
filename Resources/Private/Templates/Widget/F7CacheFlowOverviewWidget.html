@@ -1,0 +1,21 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
+<f:layout name="Widget/Widget"/>
+<f:section name="main">
+    <div class="text-center">
+        <img src="{f:uri.resource(path: 'Backend/Images/f7cacheflow.svg', extensionName: 'f7cacheflow')}"
+             class="widget-f7information-logo"
+             alt="F7 CacheFlow Logo"/>
+    </div>
+    <div class="widget-f7cacheflow-text">
+        <h2><f:translate key="widget.statistics.title" extensionName="f7cacheflow"/></h2>
+        <ul>
+            <f:for key="key" as="entry" each="{statistics}">
+                <li><strong><f:translate key="widget.statistics.{key}" extensionName="f7cacheflow"/></strong>: {entry}</li>
+            </f:for>
+        </ul>
+    </div>
+</f:section>
+
+<f:section name="footer">
+</f:section>
+</html>

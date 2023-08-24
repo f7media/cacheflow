@@ -1,0 +1,4 @@
+CI/Build/*
+vendor/*
+var/*
+.idea

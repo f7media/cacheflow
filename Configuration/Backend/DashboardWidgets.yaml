@@ -1,0 +1,22 @@
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    public: false
+
+  F7\Cacheflow\:
+    resource: '../Classes/*'
+
+  dashboard.widget.f7cacheflow:
+    class: 'F7\Cacheflow\Widgets\F7CacheFlowOverviewWidget'
+    arguments:
+      $options: []
+    tags:
+      - name: dashboard.widget
+        identifier: 'f7cacheflow'
+        groupNames: 'general'
+        title: 'LLL:EXT:f7cacheflow/Resources/Private/Language/locallang.xlf:widgets.f7cacheflow.title'
+        description: 'LLL:EXT:f7cacheflow/Resources/Private/Language/locallang.xlf:widgets.f7cacheflow.description'
+        iconIdentifier: 'content-widget-text'
+        height: 'medium'
+        width: 'small'
