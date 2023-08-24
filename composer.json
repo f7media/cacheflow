@@ -2,7 +2,21 @@
     "name": "f7/cacheflow",
     "type": "typo3-cms-extension",
     "description": "Smart cache warmup.",
-    "homepage": "https://www.f7.de",
+    "homepage": "https://github.com/f7media/cacheflow",
+    "authors": [
+        {
+            "name": "David Nax",
+            "role": "Developer"
+        },
+        {
+            "name": "Simon Pritzkat-Gerthenrich",
+            "role": "Project Manager"
+        },
+        {
+            "name": "Marc Willmann",
+            "role": "Supervisor"
+        }
+    ],
     "license": [
         "GPL-2.0-or-later"
     ],
@@ -28,17 +42,12 @@
         }
     },
     "require-dev": {
-        "codeception/codeception": "5.0.10",
-        "codeception/module-asserts": "3.0.0",
-        "codeception/module-db": "3.1.0",
-        "codeception/module-phpbrowser": "3.0.0",
-        "codeception/module-webdriver": "4.0.0",
-        "friendsofphp/php-cs-fixer": "3.20.0",
-        "helmich/typo3-typoscript-lint": "3.1.0",
-        "janhelke/codeception-email-mailhog": "2.0.0",
-        "michielroos/typo3scan": "1.7.7",
-        "phpstan/phpstan": "1.10.21",
-        "ssch/typo3-rector": "1.3.4"
+        "typo3/testing-framework": "^8"
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "F7\\Cacheflow\\Tests\\": "Tests"
+        }
     },
     "replace": {
         "typo3-ter/container": "self.version"
