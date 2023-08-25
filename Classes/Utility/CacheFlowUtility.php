@@ -31,13 +31,13 @@ class CacheFlowUtility
     }
 
     /**
-     * @param float $average
+     * @param float $oldAverage
      * @param int $numberOfRuns
      * @param float $newValue
      * @return float
      */
-    public static function calculateAverage(float $average, int $numberOfRuns, float $newValue): float
+    public static function calculateAverage(float $oldAverage, int $numberOfRuns, float $newValue): float
     {
-        return round(($average * $numberOfRuns + $newValue) / ($numberOfRuns + 1), 0);
+        return round(($oldAverage * $numberOfRuns + $newValue) / ($numberOfRuns + 1), 0);
     }
 }

@@ -62,7 +62,7 @@ class FlowCacheCommand extends Command
         $registry->set('tx_cacheflow', 'FlowCacheCommand_lastRun', date('U'));
         $executionTime = microtime(true) - $startTime;
         (new StatisticsService())->updateStatisticsInRegistry($batchSize, $executionTime);
-        $messageTitle = 'Page cache has successfully been flowed.';
+
         $statistics = [
             'Batch size' => $batchSize,
             'Pages with changed visibility' => count($pagesWithChangedVisibility),
@@ -70,7 +70,14 @@ class FlowCacheCommand extends Command
             'Pages filled up' => count($fillUpPages),
             'Execution Time (s)' => microtime(true) - $startTime,
         ];
+        $this->generateStatisticsMessage($statistics);
 
+        return Command::SUCCESS;
+    }
+
+    protected function generateStatisticsMessage(array $statistics): void
+    {
+        $messageTitle = 'Page cache has successfully been flowed.';
         if (isset($GLOBALS['TYPO3_REQUEST'])) {
             $flashStatistics = '';
             foreach ($statistics as $key => $value) {
@@ -87,7 +94,5 @@ class FlowCacheCommand extends Command
 
             (new MessagingService())->cliMessageStatistics($io, $messageTitle, $ioStatistics);
         }
-
-        return Command::SUCCESS;
     }
 }

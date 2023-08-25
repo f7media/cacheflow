@@ -49,9 +49,6 @@
             "F7\\Cacheflow\\Tests\\": "Tests"
         }
     },
-    "replace": {
-        "typo3-ter/container": "self.version"
-    },
     "scripts": {
         "prepare-tests": [
             "if [ ! -e .Build/Web/typo3conf/ext/container_example -a -e .Build/Web/typo3conf/ext ]; then cd .Build/Web/typo3conf/ext && ln -s ../../../vendor/b13/container-example container_example && cd -; fi",

@@ -16,14 +16,10 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 class FlowCacheService
 {
-    public function __construct(
-        private readonly RequestFactory $requestFactory,
-    )
-    {
-    }
 
     /**
      * @param array $pages
+     * @return void
      * @throws NoSuchCacheException
      * @throws SiteNotFoundException
      */
@@ -81,8 +77,9 @@ class FlowCacheService
      */
     protected function crawlPage(string $uri): int
     {
+        $requestFactory = GeneralUtility::makeInstance(RequestFactory::class);
         try {
-            $statusCode = $this->requestFactory->request($uri, 'GET')->getStatusCode();
+            $statusCode = $requestFactory->request($uri, 'GET')->getStatusCode();
             return $statusCode;
         } catch (ClientException  $e) {
             return $e->getCode();
