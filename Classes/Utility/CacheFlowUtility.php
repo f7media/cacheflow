@@ -22,10 +22,10 @@ class CacheFlowUtility
     /**
      * @param int $totalPages
      * @param int $currentBatchSize
-     * @param int $averageExecutionTime
+     * @param float $averageExecutionTime
      * @return int
      */
-    public static function estimateRoundRobin(int $totalPages, int $currentBatchSize, int $averageExecutionTime): int
+    public static function estimateRoundRobin(int $totalPages, int $currentBatchSize, float $averageExecutionTime): int
     {
         return (int)round(($totalPages / $currentBatchSize) * $averageExecutionTime, 0);
     }

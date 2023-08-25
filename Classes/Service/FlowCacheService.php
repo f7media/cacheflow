@@ -5,15 +5,23 @@ declare(strict_types=1);
 namespace F7\Cacheflow\Service;
 
 use F7\Cacheflow\Domain\Repository\PageRepository;
+use GuzzleHttp\Exception\ClientException;
 use TYPO3\CMS\Core\Cache\CacheManager;
 use TYPO3\CMS\Core\Cache\Exception\NoSuchCacheException;
 use TYPO3\CMS\Core\Domain\Repository\PageRepository as CorePageRepository;
 use TYPO3\CMS\Core\Exception\SiteNotFoundException;
+use TYPO3\CMS\Core\Http\RequestFactory;
 use TYPO3\CMS\Core\Site\SiteFinder;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 class FlowCacheService
 {
+    public function __construct(
+        private readonly RequestFactory $requestFactory,
+    )
+    {
+    }
+
     /**
      * @param array $pages
      * @throws NoSuchCacheException
@@ -73,12 +81,12 @@ class FlowCacheService
      */
     protected function crawlPage(string $uri): int
     {
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, $uri);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-        curl_exec($ch);
-        $status = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-        curl_close($ch);
-        return $status;
+        try {
+            $statusCode = $this->requestFactory->request($uri, 'GET')->getStatusCode();
+            return $statusCode;
+        } catch (ClientException  $e) {
+            return $e->getCode();
+        }
     }
+
 }

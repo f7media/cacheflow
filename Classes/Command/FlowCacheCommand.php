@@ -20,6 +20,14 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 class FlowCacheCommand extends Command
 {
+
+    public function __construct(
+        private readonly FlowCacheService $flowCacheService,
+    )
+    {
+        parent::__construct();
+    }
+
     protected function configure(): void
     {
         $this->setDescription('Flows the cache');
@@ -49,9 +57,7 @@ class FlowCacheCommand extends Command
         $pagesWithPrio = array_unique(array_merge($pagesWithChangedVisibility, $pagesUpdated));
         $fillUpSize = $batchSize - count($pagesWithPrio);
         $fillUpPages = ($fillUpSize > 0) ? $pageRepository->fillupBatch($fillUpSize, $pagesWithPrio) : [];
-
-        $flowCacheService = GeneralUtility::makeInstance(FlowCacheService::class);
-        $flowCacheService->processPages(array_merge($pagesWithPrio, $fillUpPages));
+        $this->flowCacheService->processPages(array_merge($pagesWithPrio, $fillUpPages));
 
         $registry->set('tx_cacheflow', 'FlowCacheCommand_lastRun', date('U'));
         $executionTime = microtime(true) - $startTime;
