@@ -15,29 +15,40 @@ class MessagingService
     /**
      * @var string
      */
-    const STATISTICS_PREFIX = '=== Statistics ===';
+    protected const STATISTICS_PREFIX = '=== Statistics ===';
 
     /**
-     * @param SymfonyStyle $io
-     * @param string $title
-     * @param array<mixed> $statistics
+     * @var string
      */
-    public function cliMessageStatistics(SymfonyStyle $io, string $title, array $statistics): void
+    protected const MESSAGE_TITLE = 'Page cache has successfully been flowed.';
+
+    /**
+     * @param array<mixed> $input
+     * @param SymfonyStyle $io
+     */
+    public function cliMessageStatistics(array $input, SymfonyStyle $io): void
     {
-        $io->success($title);
-        $io->definitionList(self::STATISTICS_PREFIX, ...$statistics);
+        $output = [];
+        foreach ($input as $key => $value) {
+            $output[] = [$key => $value];
+        }
+        $io->success(self::MESSAGE_TITLE);
+        $io->definitionList(self::STATISTICS_PREFIX, ...$output);
     }
 
     /**
-     * @param string $title
-     * @param string $content
+     * @param array<mixed> $input
      */
-    public function flashMessageStatistics(string $title, string $content): void
+    public function flashMessageStatistics(array $input): void
     {
+        $output = '';
+        foreach ($input as $key => $value) {
+            $output .= $key . ': ' . $value . PHP_EOL;
+        }
         $message = GeneralUtility::makeInstance(
             FlashMessage::class,
-            self::STATISTICS_PREFIX . PHP_EOL . $content,
-            $title,
+            self::STATISTICS_PREFIX . PHP_EOL . $output,
+            self::MESSAGE_TITLE,
             ContextualFeedbackSeverity::OK,
             true
         );

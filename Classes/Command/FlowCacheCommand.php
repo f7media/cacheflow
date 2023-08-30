@@ -15,16 +15,15 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
+use TYPO3\CMS\Core\Core\Environment;
 use TYPO3\CMS\Core\Registry;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 class FlowCacheCommand extends Command
 {
-
     public function __construct(
         private readonly FlowCacheService $flowCacheService,
-    )
-    {
+    ) {
         parent::__construct();
     }
 
@@ -63,36 +62,22 @@ class FlowCacheCommand extends Command
         $executionTime = microtime(true) - $startTime;
         (new StatisticsService())->updateStatisticsInRegistry($batchSize, $executionTime);
 
-        $statistics = [
+        $messagingOutput = [
             'Batch size' => $batchSize,
             'Pages with changed visibility' => count($pagesWithChangedVisibility),
             'Pages with updated content' => ($includeContentUpdates) ? count($pagesUpdated) : 'disabled',
             'Pages filled up' => count($fillUpPages),
             'Execution Time (s)' => microtime(true) - $startTime,
         ];
-        $this->generateStatisticsMessage($statistics);
+        $messagingService = GeneralUtility::makeInstance(MessagingService::class);
+        if (Environment::isCli()) {
+            $io = new SymfonyStyle($input, $output);
+            $messagingService->cliMessageStatistics($messagingOutput, $io);
+        } else {
+            $messagingService->flashMessageStatistics($messagingOutput);
+        }
 
         return Command::SUCCESS;
     }
 
-    protected function generateStatisticsMessage(array $statistics): void
-    {
-        $messageTitle = 'Page cache has successfully been flowed.';
-        if (isset($GLOBALS['TYPO3_REQUEST'])) {
-            $flashStatistics = '';
-            foreach ($statistics as $key => $value) {
-                $flashStatistics .= $key . ': ' . $value . PHP_EOL;
-            }
-
-            (new MessagingService())->flashMessageStatistics($messageTitle, $flashStatistics);
-        } else {
-            $io = new SymfonyStyle($input, $output);
-            $ioStatistics = [];
-            foreach ($statistics as $key => $value) {
-                $ioStatistics[] = [$key => $value];
-            }
-
-            (new MessagingService())->cliMessageStatistics($io, $messageTitle, $ioStatistics);
-        }
-    }
 }

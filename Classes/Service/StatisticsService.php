@@ -43,10 +43,10 @@ class StatisticsService
     }
 
     /**
-     * @return array
+     * @return array<mixed>
      * @throws Exception
      */
-    public function composeStatisticsOutput(): array
+    public function composeWidgetOutput(): array
     {
         $statistics = json_decode($this->registry->get('tx_cacheflow', 'FlowCacheStatistics_storage'), true);
         $output = [

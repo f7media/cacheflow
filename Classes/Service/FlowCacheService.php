@@ -16,10 +16,8 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 class FlowCacheService
 {
-
     /**
-     * @param array $pages
-     * @return void
+     * @param array<mixed> $pages
      * @throws NoSuchCacheException
      * @throws SiteNotFoundException
      */
@@ -79,11 +77,9 @@ class FlowCacheService
     {
         $requestFactory = GeneralUtility::makeInstance(RequestFactory::class);
         try {
-            $statusCode = $requestFactory->request($uri, 'GET')->getStatusCode();
-            return $statusCode;
-        } catch (ClientException  $e) {
-            return $e->getCode();
+            return $requestFactory->request($uri, 'GET')->getStatusCode();
+        } catch (ClientException  $clientException) {
+            return $clientException->getCode();
         }
     }
-
 }

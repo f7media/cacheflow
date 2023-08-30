@@ -55,7 +55,7 @@ class PageRepository
                     $queryBuilder->expr()->gt('t.tstamp', $queryBuilder->quoteIdentifier('p.last_cached')),
                 ),
                 $queryBuilder->expr()->notIn('p.doktype', $queryBuilder->createNamedParameter(CacheFlowUtility::EXCLUDED_DOKTYPES, ArrayParameterType::INTEGER))
-            )->groupBy('uid')->executeQuery()->fetchFirstColumn();
+            )->groupBy('p.uid')->executeQuery()->fetchFirstColumn();
     }
 
     /**
@@ -90,7 +90,7 @@ class PageRepository
                     ),
                 ),
                 $queryBuilder->expr()->notIn('p.doktype', $queryBuilder->createNamedParameter(CacheFlowUtility::EXCLUDED_DOKTYPES, ArrayParameterType::INTEGER))
-            )->groupBy('uid')
+            )->groupBy('p.uid')
             ->executeQuery()->fetchFirstColumn();
     }
 

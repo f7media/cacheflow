@@ -9,7 +9,7 @@ class CacheFlowUtility
     /**
      * @var int[]
      */
-    const EXCLUDED_DOKTYPES = [
+    public const EXCLUDED_DOKTYPES = [
         PageRepository::DOKTYPE_LINK,
         PageRepository::DOKTYPE_SHORTCUT,
         PageRepository::DOKTYPE_BE_USER_SECTION,

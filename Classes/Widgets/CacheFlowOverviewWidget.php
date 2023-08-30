@@ -41,7 +41,7 @@ class CacheFlowOverviewWidget implements WidgetInterface, RequestAwareWidgetInte
         $view->assignMultiple([
             'options' => $this->options,
             'configuration' => $this->configuration,
-            'statistics' => $statisticsService->composeStatisticsOutput(),
+            'statistics' => $statisticsService->composeWidgetOutput(),
         ]);
         return $view->render('Widget/CacheFlowOverviewWidget');
     }
