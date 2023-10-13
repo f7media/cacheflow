@@ -17,7 +17,7 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 class FlowCacheService
 {
     /**
-     * @param array<mixed> $pages
+     * @param mixed[] $pages
      * @throws NoSuchCacheException
      * @throws SiteNotFoundException
      */

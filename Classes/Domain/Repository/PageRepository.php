@@ -14,8 +14,8 @@ class PageRepository
 {
     /**
      * @param int $amount
-     * @param array<mixed> $excludedUids
-     * @return array<mixed>
+     * @param mixed[] $excludedUids
+     * @return mixed[]
      * @throws Exception
      */
     public function fillUpBatch(int $amount, array $excludedUids): array
@@ -39,7 +39,7 @@ class PageRepository
     }
 
     /**
-     * @return array<mixed>
+     * @return mixed[]
      * @throws Exception
      */
     public function findPagesWithUpdatedContent(): array
@@ -59,7 +59,7 @@ class PageRepository
     }
 
     /**
-     * @return array<mixed>
+     * @return mixed[]
      * @throws Exception
      */
     public function findPagesWhoseVisibilityHasJustChanged(int $lastRun): array
@@ -117,7 +117,7 @@ class PageRepository
             ->select('p.last_cached')->from('pages', 'p')
             ->orderBy('p.last_cached', 'ASC')
             ->where(
-                $queryBuilder->expr()->notIn('p.doktype', $queryBuilder->createNamedParameter(CacheFlowUtility::EXCLUDED_DOKTYPES, ArrayParameterType::INTEGER))
+                $queryBuilder->expr()->notIn('p.doktype', $queryBuilder->createNamedParameter(CacheFlowUtility::EXCLUDED_DOKTYPES, ArrayParameterType::INTEGER)),
             );
         return $statement->executeQuery()->fetchOne();
     }

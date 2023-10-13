@@ -7,12 +7,24 @@
              alt="CacheFlow Logo"/>
     </div>
     <div class="widget-cacheflow-text">
-        <h2><f:translate key="widget.statistics.title" extensionName="cacheflow"/></h2>
-        <ul>
-            <f:for key="key" as="entry" each="{statistics}">
-                <li><strong><f:translate key="widget.statistics.{key}" extensionName="cacheflow"/></strong>: {entry}</li>
-            </f:for>
-        </ul>
+        <h2>
+            <f:translate key="widget.statistics.title" extensionName="cacheflow"/>
+        </h2>
+        <f:if condition="{statistics}">
+            <f:then>
+                <ul>
+                    <f:for key="key" as="entry" each="{statistics}">
+                        <li><strong>
+                            <f:translate key="widget.statistics.{key}" extensionName="cacheflow"/>
+                        </strong>: {entry}
+                        </li>
+                    </f:for>
+                </ul>
+            </f:then>
+            <f:else>
+                <f:translate key="widget.statistics.no_data" extensionName="cacheflow"/>
+            </f:else>
+        </f:if>
     </div>
 </f:section>
 

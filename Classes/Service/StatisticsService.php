@@ -43,15 +43,18 @@ class StatisticsService
     }
 
     /**
-     * @return array<mixed>
+     * @return mixed[]
      * @throws Exception
      */
     public function composeWidgetOutput(): array
     {
-        $statistics = json_decode($this->registry->get('tx_cacheflow', 'FlowCacheStatistics_storage'), true);
+        $data = $this->registry->get('tx_cacheflow', 'FlowCacheStatistics_storage');
+        if (!$data || $data === []) return [];
+
+        $statistics = json_decode($data, true);
         $output = [
             'currentBatchSize' => $statistics['currentBatchSize'],
-            'lastCompletedRun' => date('d.m.Y H:s', (int)$statistics['lastCompletedRun']),
+            'lastCompletedRun' => date('d.m.Y H:i', (int)$statistics['lastCompletedRun']),
             'averageExecutionTime' => $statistics['averageExecutionTime'],
         ];
         $pageRepository = GeneralUtility::makeInstance(PageRepository::class);
@@ -64,7 +67,10 @@ class StatisticsService
             $output['estimationS'] = $roundRobin;
         }
 
-        $output['oldestPage'] = date('d.m.Y H:s', $pageRepository->getOldestCachedPageInSystem());
+        $oldestFlowedPage = $pageRepository->getOldestCachedPageInSystem();
+        if ($oldestFlowedPage > 0) {
+            $output['oldestPage'] = date('d.m.Y H:i', $oldestFlowedPage);
+        }
         return $output;
     }
 }

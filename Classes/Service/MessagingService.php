@@ -23,7 +23,7 @@ class MessagingService
     protected const MESSAGE_TITLE = 'Page cache has successfully been flowed.';
 
     /**
-     * @param array<mixed> $input
+     * @param mixed[] $input
      * @param SymfonyStyle $io
      */
     public function cliMessageStatistics(array $input, SymfonyStyle $io): void
@@ -37,7 +37,7 @@ class MessagingService
     }
 
     /**
-     * @param array<mixed> $input
+     * @param mixed[] $input
      */
     public function flashMessageStatistics(array $input): void
     {

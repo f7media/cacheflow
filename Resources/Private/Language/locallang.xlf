@@ -1,42 +1,51 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
-	<file source-language="en" datatype="plaintext" original="EXT:cacheflow/Resources/Private/Language/locallang.xlf" date="2023-07-03T08:40:42Z" product-name="cacheflow">
-		<header/>
-		<body>
-			<trans-unit id="widgets.cacheflow.title" resname="widgets.cacheflow.title" approved="yes">
-				<source>CacheFlow Information</source>
-			</trans-unit>
-			<trans-unit id="widgets.cacheflow.description" resname="widgets.cacheflow.description" approved="yes">
-				<source>Show current status and statistics of the cache flow process.</source>
-			</trans-unit>
-			<trans-unit id="widget.statistics.title" resname="widget.statistics.title" approved="yes">
-				<source>Statistics</source>
-			</trans-unit>
-			<trans-unit id="widget.statistics.numberOfRuns" resname="widget.statistics.numberOfRuns" approved="yes">
-				<source>Number of runs</source>
-			</trans-unit>
-			<trans-unit id="widget.statistics.currentBatchSize" resname="widget.statistics.currentBatchSize" approved="yes">
-				<source>Current batch size</source>
-			</trans-unit>
-			<trans-unit id="widget.statistics.lastCompletedRun" resname="widget.statistics.lastCompletedRun" approved="yes">
-				<source>Last completed run</source>
-			</trans-unit>
-			<trans-unit id="widget.statistics.averageExecutionTime" resname="widget.statistics.averageExecutionTime" approved="yes">
-				<source>Average execution time (s)</source>
-			</trans-unit>
-			<trans-unit id="widget.statistics.oldestPage" resname="widget.statistics.oldestPage" approved="yes">
-				<source>Oldest cached page</source>
-			</trans-unit>
-			<trans-unit id="widget.statistics.estimationS" resname="widget.statistics.estimationS" approved="yes">
-				<source>Estimated time for Round Robin (s)</source>
-			</trans-unit>
-			<trans-unit id="widget.statistics.estimationM" resname="widget.statistics.estimationM" approved="yes">
-				<source>Estimated time for Round Robin (m:s)</source>
-			</trans-unit>
-			<trans-unit id="widget.statistics.estimationH" resname="widget.statistics.estimationH" approved="yes">
-				<source>Estimated time for Round Robin (H:m:s)</source>
-			</trans-unit>
+    <file source-language="en" datatype="plaintext" original="EXT:cacheflow/Resources/Private/Language/locallang.xlf"
+          date="2023-07-03T08:40:42Z" product-name="cacheflow">
+        <header/>
+        <body>
+            <trans-unit id="widgets.cacheflow.title" resname="widgets.cacheflow.title" approved="yes">
+                <source>CacheFlow Information</source>
+            </trans-unit>
+            <trans-unit id="widgets.cacheflow.description" resname="widgets.cacheflow.description" approved="yes">
+                <source>Show current status and statistics of the cache flow process.</source>
+            </trans-unit>
+            <trans-unit id="widget.statistics.title" resname="widget.statistics.title" approved="yes">
+                <source>Statistics</source>
+            </trans-unit>
+            <trans-unit id="widget.statistics.no_data" resname="widget.statistics.no_data" approved="yes">
+                <source>No data available. Seems like the cache has not flowed yet. Please make sure the scheduler task
+                    is ready.
+                </source>
+            </trans-unit>
+            <trans-unit id="widget.statistics.numberOfRuns" resname="widget.statistics.numberOfRuns" approved="yes">
+                <source>Number of runs</source>
+            </trans-unit>
+            <trans-unit id="widget.statistics.currentBatchSize" resname="widget.statistics.currentBatchSize"
+                        approved="yes">
+                <source>Current batch size</source>
+            </trans-unit>
+            <trans-unit id="widget.statistics.lastCompletedRun" resname="widget.statistics.lastCompletedRun"
+                        approved="yes">
+                <source>Last completed run</source>
+            </trans-unit>
+            <trans-unit id="widget.statistics.averageExecutionTime" resname="widget.statistics.averageExecutionTime"
+                        approved="yes">
+                <source>Average execution time (s)</source>
+            </trans-unit>
+            <trans-unit id="widget.statistics.oldestPage" resname="widget.statistics.oldestPage" approved="yes">
+                <source>Oldest flowed page</source>
+            </trans-unit>
+            <trans-unit id="widget.statistics.estimationS" resname="widget.statistics.estimationS" approved="yes">
+                <source>Estimated time for Round Robin (s)</source>
+            </trans-unit>
+            <trans-unit id="widget.statistics.estimationM" resname="widget.statistics.estimationM" approved="yes">
+                <source>Estimated time for Round Robin (m:s)</source>
+            </trans-unit>
+            <trans-unit id="widget.statistics.estimationH" resname="widget.statistics.estimationH" approved="yes">
+                <source>Estimated time for Round Robin (H:m:s)</source>
+            </trans-unit>
 
-		</body>
-	</file>
+        </body>
+    </file>
 </xliff>

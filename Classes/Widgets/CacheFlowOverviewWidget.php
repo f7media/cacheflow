@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace F7\Cacheflow\Widgets;
 
+use Exception;
 use F7\Cacheflow\Service\StatisticsService;
 use Psr\Http\Message\ServerRequestInterface;
 use TYPO3\CMS\Backend\View\BackendViewFactory;
@@ -28,11 +29,19 @@ class CacheFlowOverviewWidget implements WidgetInterface, RequestAwareWidgetInte
     ) {
     }
 
+    /**
+     * @param ServerRequestInterface $request
+     * @return void
+     */
     public function setRequest(ServerRequestInterface $request): void
     {
         $this->request = $request;
     }
 
+    /**
+     * @return string
+     * @throws Exception
+     */
     public function renderWidgetContent(): string
     {
         $view = $this->backendViewFactory->create($this->request, ['typo3/cms-dashboard', 'f7/cacheflow']);
@@ -47,7 +56,7 @@ class CacheFlowOverviewWidget implements WidgetInterface, RequestAwareWidgetInte
     }
 
     /**
-     * @return array{mixed}
+     * @return mixed[]
      */
     public function getOptions(): array
     {
