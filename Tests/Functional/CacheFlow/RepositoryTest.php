@@ -21,11 +21,19 @@ class RepositoryTest extends FunctionalTestCase
     ];
 
     /**
+     * @var array|string[]
+     */
+    protected array $coreExtensionsToLoad = [
+        'dashboard',
+    ];
+
+    /**
      * @var non-empty-string[] Have cacheflow loaded
      */
     protected array $testExtensionsToLoad = [
         'typo3conf/ext/cacheflow',
     ];
+
 
     /**
      * @test

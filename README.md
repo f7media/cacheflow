@@ -1,3 +1,5 @@
+![tests core v12](https://github.com/f7media/cacheflow/actions/workflows/testscorev12.yml/badge.svg)
+
 # TYPO3 Extension ``cacheflow``
 
 The "cacheflow" extension provides a cache management solution for TYPO3 CMS, allowing you to flow the pages cache and
