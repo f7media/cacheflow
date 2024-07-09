@@ -31,7 +31,6 @@ class FlowCacheCommand extends Command
     {
         $this->setDescription('Flows the cache');
         $this->addArgument('batchSize', InputArgument::OPTIONAL, 'Number of pages per batch. (Default = 50)');
-        $this->addOption('force-content', 'fc', InputOption::VALUE_NONE, 'Force check for updated pages/content.');
         $this->setHelp('');
     }
 
@@ -49,14 +48,11 @@ class FlowCacheCommand extends Command
         $registry = GeneralUtility::makeInstance(Registry::class);
         $lastRun = (int)$registry->get('tx_cacheflow', 'FlowCacheCommand_lastRun', 0);
         $batchSize = ((int)$input->getArgument('batchSize') > 0) ? (int)$input->getArgument('batchSize') : 50;
-        $includeContentUpdates = $input->getOption('force-content');
 
         $pagesWithChangedVisibility = $pageRepository->findPagesWhoseVisibilityHasJustChanged($lastRun);
-        $pagesUpdated = ($includeContentUpdates) ? $pageRepository->findPagesWithUpdatedContent() : [];
-        $pagesWithPrio = array_unique(array_merge($pagesWithChangedVisibility, $pagesUpdated));
-        $fillUpSize = $batchSize - count($pagesWithPrio);
-        $fillUpPages = ($fillUpSize > 0) ? $pageRepository->fillupBatch($fillUpSize, $pagesWithPrio) : [];
-        $this->flowCacheService->processPages(array_merge($pagesWithPrio, $fillUpPages));
+        $fillUpSize = $batchSize - count($pagesWithChangedVisibility);
+        $fillUpPages = ($fillUpSize > 0) ? $pageRepository->fillupBatch($fillUpSize, $pagesWithChangedVisibility) : [];
+        $this->flowCacheService->processPages(array_merge($pagesWithChangedVisibility, $fillUpPages));
 
         $registry->set('tx_cacheflow', 'FlowCacheCommand_lastRun', date('U'));
         $executionTime = microtime(true) - $startTime;
@@ -65,7 +61,6 @@ class FlowCacheCommand extends Command
         $messagingOutput = [
             'Batch size' => $batchSize,
             'Pages with changed visibility' => count($pagesWithChangedVisibility),
-            'Pages with updated content' => ($includeContentUpdates) ? count($pagesUpdated) : 'disabled',
             'Pages filled up' => count($fillUpPages),
             'Execution Time (s)' => microtime(true) - $startTime,
         ];

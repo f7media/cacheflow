@@ -42,26 +42,6 @@ class PageRepository
      * @return mixed[]
      * @throws Exception
      */
-    public function findPagesWithUpdatedContent(): array
-    {
-        $queryBuilder = (new ConnectionPool())->getConnectionForTable('pages')->createQueryBuilder();
-        $queryBuilder->getRestrictions()->removeByType(StartTimeRestriction::class)->removeByType(EndTimeRestriction::class);
-        return $queryBuilder
-            ->select('p.uid')->from('pages', 'p')
-            ->leftJoin('p', 'tt_content', 't', $queryBuilder->expr()->eq('p.uid', $queryBuilder->quoteIdentifier('t.pid')))
-            ->where(
-                $queryBuilder->expr()->or(
-                    $queryBuilder->expr()->gt('p.tstamp', $queryBuilder->quoteIdentifier('p.last_cached')),
-                    $queryBuilder->expr()->gt('t.tstamp', $queryBuilder->quoteIdentifier('p.last_cached')),
-                ),
-                $queryBuilder->expr()->notIn('p.doktype', $queryBuilder->createNamedParameter(CacheFlowUtility::EXCLUDED_DOKTYPES, ArrayParameterType::INTEGER))
-            )->groupBy('p.uid')->executeQuery()->fetchFirstColumn();
-    }
-
-    /**
-     * @return mixed[]
-     * @throws Exception
-     */
     public function findPagesWhoseVisibilityHasJustChanged(int $lastRun): array
     {
         $queryBuilder = (new ConnectionPool())->getConnectionForTable('pages')->createQueryBuilder();

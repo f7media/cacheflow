@@ -63,7 +63,6 @@ TYPO3 installation. Then run the following command
 ## Options
 
 - `--batchSize` (optional): Specifies the number of pages per execution. If nothing is set, the default value is 50.
-- `--force-content` (optional): Forces the check for updated pages/content during cache flowing.
 
 ## Scheduler Task
 
