@@ -1,5 +1,5 @@
 pages,,,,,,,,,,,,
-,"uid","pid","tstamp","crdate","deleted","hidden","starttime","endtime","sys_language_uid","title","last_cached","abstract"
+,"uid","pid","tstamp","crdate","deleted","hidden","starttime","endtime","sys_language_uid","title","last_flowed","abstract"
 ,1,0,1691395239,1666954049,0,0,0,0,0,"Home",1693396109,""
 ,2,1,1691395569,1666954049,0,0,0,0,0,"Startpage",1693396109,""
 ,3,2,1691295349,1666954049,0,0,0,0,0,"Products",1693396109,""
@@ -25,5 +25,5 @@ pages,,,,,,,,,,,,
 ,23,18,1691394533,1666954049,0,0,0,0,0,"Support",1693396109,""
 ,24,19,1691394644,1666954049,0,0,0,0,0,"Account",1693396109,""
 ,25,20,1691394755,1666954049,0,0,0,0,0,"Search",1693396109,""
-,26,20,1693396209,1666954049,0,0,0,0,0,"UpdatedContent1",1693396109,"Note: tstamp > last_cached"
-,27,20,1693396209,1666954049,0,0,0,0,0,"UpdatedContent2",1693396109,"Note: tstamp > last_cached"
+,26,20,1693396209,1666954049,0,0,0,0,0,"UpdatedContent1",1693396109,"Note: tstamp > last_flowed"
+,27,20,1693396209,1666954049,0,0,0,0,0,"UpdatedContent2",1693396109,"Note: tstamp > last_flowed"

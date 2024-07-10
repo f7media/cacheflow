@@ -24,7 +24,7 @@ class PageRepository
         $queryBuilder->getRestrictions()->removeByType(StartTimeRestriction::class)->removeByType(EndTimeRestriction::class);
         $statement = $queryBuilder
             ->select('p.uid')->from('pages', 'p')
-            ->orderBy('p.last_cached', 'ASC')
+            ->orderBy('p.last_flowed', 'ASC')
             ->where(
                 $queryBuilder->expr()->notIn('p.doktype', $queryBuilder->createNamedParameter(CacheFlowUtility::EXCLUDED_DOKTYPES, ArrayParameterType::INTEGER))
             )
@@ -82,7 +82,7 @@ class PageRepository
         $queryBuilder = (new ConnectionPool())->getConnectionForTable('pages')->createQueryBuilder();
         $queryBuilder->update('pages')
             ->where($queryBuilder->expr()->eq('uid', $queryBuilder->createNamedParameter($pid, Connection::PARAM_INT)))
-            ->set('last_cached', time())->executeStatement();
+            ->set('last_flowed', time())->executeStatement();
     }
 
     /**
@@ -94,8 +94,8 @@ class PageRepository
         $queryBuilder = (new ConnectionPool())->getConnectionForTable('pages')->createQueryBuilder();
         $queryBuilder->getRestrictions()->removeByType(StartTimeRestriction::class)->removeByType(EndTimeRestriction::class);
         $statement = $queryBuilder
-            ->select('p.last_cached')->from('pages', 'p')
-            ->orderBy('p.last_cached', 'ASC')
+            ->select('p.last_flowed')->from('pages', 'p')
+            ->orderBy('p.last_flowed', 'ASC')
             ->where(
                 $queryBuilder->expr()->notIn('p.doktype', $queryBuilder->createNamedParameter(CacheFlowUtility::EXCLUDED_DOKTYPES, ArrayParameterType::INTEGER)),
             );
@@ -112,7 +112,7 @@ class PageRepository
         $queryBuilder->getRestrictions()->removeByType(StartTimeRestriction::class)->removeByType(EndTimeRestriction::class);
         $statement = $queryBuilder
             ->select('p.uid')->from('pages', 'p')
-            ->orderBy('p.last_cached', 'ASC')
+            ->orderBy('p.last_flowed', 'ASC')
             ->where(
                 $queryBuilder->expr()->notIn('p.doktype', $queryBuilder->createNamedParameter(CacheFlowUtility::EXCLUDED_DOKTYPES, ArrayParameterType::INTEGER))
             );
