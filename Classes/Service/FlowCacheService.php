@@ -6,6 +6,7 @@ namespace F7\Cacheflow\Service;
 
 use F7\Cacheflow\Domain\Repository\PageRepository;
 use GuzzleHttp\Exception\ClientException;
+use GuzzleHttp\Exception\ServerException;
 use TYPO3\CMS\Core\Cache\CacheManager;
 use TYPO3\CMS\Core\Cache\Exception\NoSuchCacheException;
 use TYPO3\CMS\Core\Domain\Repository\PageRepository as CorePageRepository;
@@ -78,7 +79,9 @@ class FlowCacheService
         $requestFactory = GeneralUtility::makeInstance(RequestFactory::class);
         try {
             return $requestFactory->request($uri, 'GET')->getStatusCode();
-        } catch (ClientException  $clientException) {
+        } catch (ServerException $clientException) {
+            return $clientException->getCode();
+        } catch (ClientException $clientException) {
             return $clientException->getCode();
         }
     }
