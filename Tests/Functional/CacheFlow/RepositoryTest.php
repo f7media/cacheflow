@@ -17,7 +17,7 @@ class RepositoryTest extends FunctionalTestCase
      * @var array<string, int>
      */
     protected const EXPECTED_RESULTS = [
-        'testFindPagesWithUpdatedContent' => 2,
+        'testFindPagesWithUpdatedContent' => 6,
     ];
 
     /**
@@ -38,11 +38,13 @@ class RepositoryTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function testFindPagesWithUpdatedContent(): void
+    public function testFindPagesWhoseVisibilityHasJustChanged(): void
     {
+        $lastRun = 1710181101;
         $this->importCSVDataSet(GeneralUtility::getFileAbsFileName('EXT:cacheflow/Tests/Functional/Fixtures/pages.csv'));
+        $this->importCSVDataSet(GeneralUtility::getFileAbsFileName('EXT:cacheflow/Tests/Functional/Fixtures/tt_content.csv'));
         $pageRepo = GeneralUtility::makeInstance(PageRepository::class);
-        $pages = $pageRepo->findPagesWithUpdatedContent();
+        $pages = $pageRepo->findPagesWhoseVisibilityHasJustChanged($lastRun);
         self::assertEquals(self::EXPECTED_RESULTS['testFindPagesWithUpdatedContent'], count($pages));
     }
 }

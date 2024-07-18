@@ -49,7 +49,7 @@ class PageRepository
         $now = date('U');
         return $queryBuilder
             ->select('p.uid')->from('pages', 'p')
-            ->join('p', 'tt_content', 't', $queryBuilder->expr()->eq('p.uid', $queryBuilder->quoteIdentifier('t.pid')))
+            ->leftJoin('p', 'tt_content', 't', $queryBuilder->expr()->eq('p.uid', $queryBuilder->quoteIdentifier('t.pid')))
             ->where(
                 $queryBuilder->expr()->or(
                     $queryBuilder->expr()->and(
