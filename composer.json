@@ -1,7 +1,7 @@
 {
     "name": "f7/cacheflow",
     "type": "typo3-cms-extension",
-    "description": "Smart cache warmup.",
+    "description": "Continuous background refreshing of cached pages.",
     "homepage": "https://github.com/f7media/cacheflow",
     "authors": [
         {
@@ -41,8 +41,10 @@
         }
     },
     "require-dev": {
+        "ext-zip": "*",
         "typo3/cms-dashboard": "^12.4",
-        "typo3/testing-framework": "^8.2"
+        "typo3/testing-framework": "^8.2",
+        "typo3/tailor": "^1.6"
     },
     "autoload-dev": {
         "psr-4": {
