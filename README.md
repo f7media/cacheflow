@@ -46,7 +46,7 @@ The extension currently supports TYPO3 v12.
 
 The installation via composer is recommended.
 
-    $ composer require f7/cacheflow
+    $ composer require f7media/cacheflow
 
 ### TYPO3 Extension Repository
 
@@ -83,7 +83,7 @@ by command), the `last_flowed` value will not change. As a consequence, the corr
 than pages, which might be more relevant at that point of time. One could consider listening to the `CacheFlushEvent` or 
 use a `DataHandler` hook to avoid this.
 
-If you find an issue [please report here](https://github.com/f7/cacheflow/issues).
+If you find an issue [please report here](https://github.com/f7media/cacheflow/issues).
 
 ### Contact
 

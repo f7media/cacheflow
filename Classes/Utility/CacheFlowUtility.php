@@ -16,7 +16,6 @@ class CacheFlowUtility
         PageRepository::DOKTYPE_MOUNTPOINT,
         PageRepository::DOKTYPE_SPACER,
         PageRepository::DOKTYPE_SYSFOLDER,
-        PageRepository::DOKTYPE_RECYCLER,
     ];
 
     public static function estimateRoundRobin(int $totalPages, int $currentBatchSize, float $averageExecutionTime): int

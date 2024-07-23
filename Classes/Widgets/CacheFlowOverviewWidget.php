@@ -39,7 +39,7 @@ class CacheFlowOverviewWidget implements WidgetInterface, RequestAwareWidgetInte
     #[\Override]
     public function renderWidgetContent(): string
     {
-        $view = $this->backendViewFactory->create($this->request, ['typo3/cms-dashboard', 'f7/cacheflow']);
+        $view = $this->backendViewFactory->create($this->request, ['typo3/cms-dashboard', 'f7media/cacheflow']);
         $statisticsService = GeneralUtility::makeInstance(StatisticsService::class);
 
         $view->assignMultiple([
