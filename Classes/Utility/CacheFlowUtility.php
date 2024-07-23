@@ -19,23 +19,11 @@ class CacheFlowUtility
         PageRepository::DOKTYPE_RECYCLER,
     ];
 
-    /**
-     * @param int $totalPages
-     * @param int $currentBatchSize
-     * @param float $averageExecutionTime
-     * @return int
-     */
     public static function estimateRoundRobin(int $totalPages, int $currentBatchSize, float $averageExecutionTime): int
     {
         return (int)round(($totalPages / $currentBatchSize) * $averageExecutionTime, 0);
     }
 
-    /**
-     * @param float $oldAverage
-     * @param int $numberOfRuns
-     * @param float $newValue
-     * @return float
-     */
     public static function calculateAverage(float $oldAverage, int $numberOfRuns, float $newValue): float
     {
         return round(($oldAverage * $numberOfRuns + $newValue) / ($numberOfRuns + 1), 0);

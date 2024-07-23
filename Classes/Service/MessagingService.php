@@ -24,7 +24,6 @@ class MessagingService
 
     /**
      * @param mixed[] $input
-     * @param SymfonyStyle $io
      */
     public function cliMessageStatistics(array $input, SymfonyStyle $io): void
     {
@@ -32,6 +31,7 @@ class MessagingService
         foreach ($input as $key => $value) {
             $output[] = [$key => $value];
         }
+
         $io->success(self::MESSAGE_TITLE);
         $io->definitionList(self::STATISTICS_PREFIX, ...$output);
     }
@@ -45,6 +45,7 @@ class MessagingService
         foreach ($input as $key => $value) {
             $output .= $key . ': ' . $value . PHP_EOL;
         }
+
         $message = GeneralUtility::makeInstance(
             FlashMessage::class,
             self::STATISTICS_PREFIX . PHP_EOL . $output,

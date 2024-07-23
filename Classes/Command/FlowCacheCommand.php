@@ -26,6 +26,7 @@ class FlowCacheCommand extends Command
         parent::__construct();
     }
 
+    #[\Override]
     protected function configure(): void
     {
         $this->setDescription('Flows the cache');
@@ -34,11 +35,9 @@ class FlowCacheCommand extends Command
     }
 
     /**
-     * @param InputInterface $input
-     * @param OutputInterface $output
-     * @return int
      * @throws Exception
      */
+    #[\Override]
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $startTime = microtime(true);
@@ -73,5 +72,4 @@ class FlowCacheCommand extends Command
 
         return Command::SUCCESS;
     }
-
 }

@@ -37,7 +37,6 @@ class FlowCacheService
     }
 
     /**
-     * @param int $pid
      * @throws NoSuchCacheException
      */
     protected function invalidateCacheForPage(int $pid): void
@@ -47,8 +46,6 @@ class FlowCacheService
     }
 
     /**
-     * @param int $pid
-     * @return string|bool
      * @throws SiteNotFoundException
      */
     protected function buildPageUri(int $pid): string|bool
@@ -70,18 +67,12 @@ class FlowCacheService
         return (string)$router->generateUri($pid);
     }
 
-    /**
-     * @param string $uri
-     * @return int
-     */
     protected function crawlPage(string $uri): int
     {
         $requestFactory = GeneralUtility::makeInstance(RequestFactory::class);
         try {
             return $requestFactory->request($uri, 'GET')->getStatusCode();
-        } catch (ServerException $clientException) {
-            return $clientException->getCode();
-        } catch (ClientException $clientException) {
+        } catch (ServerException|ClientException $clientException) {
             return $clientException->getCode();
         }
     }

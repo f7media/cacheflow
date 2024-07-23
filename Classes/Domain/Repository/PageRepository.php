@@ -13,7 +13,6 @@ use TYPO3\CMS\Core\Database\Query\Restriction\StartTimeRestriction;
 class PageRepository
 {
     /**
-     * @param int $amount
      * @param mixed[] $excludedUids
      * @return mixed[]
      * @throws Exception
@@ -74,9 +73,6 @@ class PageRepository
             ->executeQuery()->fetchFirstColumn();
     }
 
-    /**
-     * @param int $pid
-     */
     public function updatePageLastCacheStatus(int $pid): void
     {
         $queryBuilder = (new ConnectionPool())->getConnectionForTable('pages')->createQueryBuilder();
@@ -86,7 +82,6 @@ class PageRepository
     }
 
     /**
-     * @return int
      * @throws Exception
      */
     public function getOldestCachedPageInSystem(): int
@@ -103,7 +98,6 @@ class PageRepository
     }
 
     /**
-     * @return int
      * @throws Exception
      */
     public function getAllRelevantPages(): int

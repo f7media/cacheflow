@@ -18,8 +18,6 @@ class CacheFlowOverviewWidget implements WidgetInterface, RequestAwareWidgetInte
     private ServerRequestInterface $request;
 
     /**
-     * @param WidgetConfigurationInterface $configuration
-     * @param BackendViewFactory $backendViewFactory
      * @param array{mixed} $options
      */
     public function __construct(
@@ -29,19 +27,16 @@ class CacheFlowOverviewWidget implements WidgetInterface, RequestAwareWidgetInte
     ) {
     }
 
-    /**
-     * @param ServerRequestInterface $request
-     * @return void
-     */
+    #[\Override]
     public function setRequest(ServerRequestInterface $request): void
     {
         $this->request = $request;
     }
 
     /**
-     * @return string
      * @throws Exception
      */
+    #[\Override]
     public function renderWidgetContent(): string
     {
         $view = $this->backendViewFactory->create($this->request, ['typo3/cms-dashboard', 'f7/cacheflow']);
@@ -58,6 +53,7 @@ class CacheFlowOverviewWidget implements WidgetInterface, RequestAwareWidgetInte
     /**
      * @return mixed[]
      */
+    #[\Override]
     public function getOptions(): array
     {
         return $this->options;
