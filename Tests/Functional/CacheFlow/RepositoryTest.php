@@ -34,7 +34,6 @@ class RepositoryTest extends FunctionalTestCase
         'typo3conf/ext/cacheflow',
     ];
 
-
     /**
      * @test
      */
