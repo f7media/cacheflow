@@ -11,3 +11,5 @@ config
 
 composer.json.testing
 .cache
+
+Documentation-GENERATED-temp/

@@ -3,6 +3,11 @@
     "type": "typo3-cms-extension",
     "description": "Continuous background refreshing of cached pages.",
     "homepage": "https://github.com/f7media/cacheflow",
+    "support": {
+        "source": "https://github.com/f7media/cacheflow",
+        "issues": "https://github.com/f7media/cacheflow/issues",
+        "docs": "https://docs.typo3.org/p/f7media/cacheflow/main/en-us/"
+    },
     "authors": [
         {
             "name": "David Nax",
