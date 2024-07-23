@@ -2,17 +2,16 @@
 
 declare(strict_types=1);
 
-namespace F7\Cacheflow\Command;
+namespace F7media\Cacheflow\Command;
 
 use Doctrine\DBAL\Exception;
-use F7\Cacheflow\Domain\Repository\PageRepository;
-use F7\Cacheflow\Service\FlowCacheService;
-use F7\Cacheflow\Service\MessagingService;
-use F7\Cacheflow\Service\StatisticsService;
+use F7media\Cacheflow\Domain\Repository\PageRepository;
+use F7media\Cacheflow\Service\FlowCacheService;
+use F7media\Cacheflow\Service\MessagingService;
+use F7media\Cacheflow\Service\StatisticsService;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use TYPO3\CMS\Core\Core\Environment;

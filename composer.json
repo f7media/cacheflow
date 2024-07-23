@@ -1,5 +1,5 @@
 {
-    "name": "f7/cacheflow",
+    "name": "f7media/cacheflow",
     "type": "typo3-cms-extension",
     "description": "Continuous background refreshing of cached pages.",
     "homepage": "https://github.com/f7media/cacheflow",
@@ -27,7 +27,7 @@
     },
     "autoload": {
         "psr-4": {
-            "F7\\Cacheflow\\": "Classes/"
+            "F7media\\Cacheflow\\": "Classes/"
         }
     },
     "minimum-stability": "dev",
@@ -48,7 +48,7 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "F7\\Cacheflow\\Tests\\": "Tests"
+            "F7media\\Cacheflow\\Tests\\": "Tests"
         }
     },
     "extra": {

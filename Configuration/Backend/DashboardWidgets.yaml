@@ -4,11 +4,11 @@ services:
     autoconfigure: true
     public: false
 
-  F7\Cacheflow\:
+  F7media\Cacheflow\:
     resource: '../Classes/*'
 
   dashboard.widget.cacheflow:
-    class: 'F7\Cacheflow\Widgets\CacheFlowOverviewWidget'
+    class: 'F7media\Cacheflow\Widgets\CacheFlowOverviewWidget'
     arguments:
       $options: []
     tags:

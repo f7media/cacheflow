@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace F7\Cacheflow\Service;
+namespace F7media\Cacheflow\Service;
 
-use F7\Cacheflow\Domain\Repository\PageRepository;
+use F7media\Cacheflow\Domain\Repository\PageRepository;
 use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Exception\ServerException;
 use TYPO3\CMS\Core\Cache\CacheManager;

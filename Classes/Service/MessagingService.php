@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace F7\Cacheflow\Service;
+namespace F7media\Cacheflow\Service;
 
 use Symfony\Component\Console\Style\SymfonyStyle;
 use TYPO3\CMS\Core\Messaging\FlashMessage;

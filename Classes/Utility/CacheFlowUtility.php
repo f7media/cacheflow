@@ -1,6 +1,6 @@
 <?php
 
-namespace F7\Cacheflow\Utility;
+namespace F7media\Cacheflow\Utility;
 
 use TYPO3\CMS\Core\Domain\Repository\PageRepository;
 

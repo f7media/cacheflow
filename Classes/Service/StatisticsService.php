@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace F7\Cacheflow\Service;
 
 use Doctrine\DBAL\Exception;
-use F7\Cacheflow\Domain\Repository\PageRepository;
-use F7\Cacheflow\Utility\CacheFlowUtility;
+use F7media\Cacheflow\Domain\Repository\PageRepository;
+use F7media\Cacheflow\Utility\CacheFlowUtility;
 use TYPO3\CMS\Core\Registry;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 

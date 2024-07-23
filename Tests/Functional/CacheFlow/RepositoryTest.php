@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace F7\Cacheflow\Tests\Functional\CacheFlow;
+namespace F7media\Cacheflow\Tests\Functional\CacheFlow;
 
-use F7\Cacheflow\Domain\Repository\PageRepository;
+use F7media\Cacheflow\Domain\Repository\PageRepository;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\TestingFramework\Core\Functional\FunctionalTestCase;
 

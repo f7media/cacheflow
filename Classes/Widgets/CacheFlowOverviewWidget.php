@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace F7\Cacheflow\Widgets;
+namespace F7media\Cacheflow\Widgets;
 
 use Exception;
-use F7\Cacheflow\Service\StatisticsService;
+use F7media\Cacheflow\Service\StatisticsService;
 use Psr\Http\Message\ServerRequestInterface;
 use TYPO3\CMS\Backend\View\BackendViewFactory;
 use TYPO3\CMS\Core\Utility\GeneralUtility;

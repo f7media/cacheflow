@@ -1,10 +1,10 @@
 <?php
 
-namespace F7\Cacheflow\Domain\Repository;
+namespace F7media\Cacheflow\Domain\Repository;
 
 use Doctrine\DBAL\ArrayParameterType;
 use Doctrine\DBAL\Exception;
-use F7\Cacheflow\Utility\CacheFlowUtility;
+use F7media\Cacheflow\Utility\CacheFlowUtility;
 use TYPO3\CMS\Core\Database\Connection;
 use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Database\Query\Restriction\EndTimeRestriction;

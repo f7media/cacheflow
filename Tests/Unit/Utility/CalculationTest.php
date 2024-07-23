@@ -1,8 +1,9 @@
 <?php
 
-namespace F7\Cacheflow\Tests\Unit\Hooks;
+namespace F7media\Cacheflow\Tests\Unit\Hooks;
 
-use F7\Cacheflow\Utility\CacheFlowUtility;
+use F7media\Cacheflow\Utility\CacheFlowUtility;
+use PHPUnit\Framework\Attributes\Test;
 use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
 class CalculationTest extends UnitTestCase
@@ -33,9 +34,7 @@ class CalculationTest extends UnitTestCase
         'expectedResult' => 57,
     ];
 
-    /**
-     * @test
-     */
+    #[Test]
     public function validateRoundRobinCalculation(): void
     {
         $input = self::DATA_ROUND_ROBIN['INPUT'];
@@ -45,9 +44,7 @@ class CalculationTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function validateAverageCalculation(): void
     {
         $input = self::DATA_AVERAGE_CALC['INPUT'];

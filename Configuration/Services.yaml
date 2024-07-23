@@ -7,10 +7,10 @@ services:
     autoconfigure: true
     public: false
 
-  F7\Cacheflow\:
+  F7media\Cacheflow\:
     resource: '../Classes/*'
 
-  F7\Cacheflow\Command\FlowCacheCommand:
+  F7media\Cacheflow\Command\FlowCacheCommand:
     tags:
       - name: 'console.command'
         command: 'cacheflow:process'
