@@ -7,7 +7,7 @@ Introduction
 ============
 
 The basic idea is to continuously fetch the oldest cached pages, invalidate their cache and curl the page so that they
-are freshly cached. If there are prioritized pages (e.g. with changed visibility or content) they will be detected
+are freshly cached. If there are prioritized pages (e.g. with changed visibility) they will be detected
 automatically and processed first.
 
 Motivation and Use case
