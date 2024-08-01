@@ -6,7 +6,7 @@
 Usage
 =====
 
-he "cacheflow" extension provides a command-line interface (CLI) command called `cacheflow:process` for cache
+The "cacheflow" extension provides a command-line interface (CLI) command called `cacheflow:process` for cache
 flowing operations. To execute the command, open a terminal or command prompt and navigate to the root directory of your
 TYPO3 installation. Then run the following command
 
