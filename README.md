@@ -1,5 +1,5 @@
-[![Latest Stable Version](http://poser.pugx.org/f7media/cacheflow/v)](https://packagist.org/packages/f7media/cacheflow)
-![tests core v12](https://github.com/f7media/cacheflow/actions/workflows/testscorev12.yml/badge.svg)
+[![TYPO3 compatibility](https://img.shields.io/badge/TYPO3-12.4-ff8700?maxAge=3600&logo=typo3)](https://get.typo3.org/)
+[![TYPO3 compatibility](https://img.shields.io/badge/TYPO3-13.2-ff8700?maxAge=3600&logo=typo3)](https://get.typo3.org/)
 
 # TYPO3 Extension `cacheflow`
 

@@ -1,4 +1,5 @@
 <?php
+
 $EM_CONF[$_EXTKEY] = [
     'title' => 'Cacheflow',
     'description' => 'Continuous background refreshing of cached pages.',
@@ -10,7 +11,7 @@ $EM_CONF[$_EXTKEY] = [
     'version' => '1.0.4',
     'constraints' => [
         'depends' => [
-            'typo3' => '12.4.0-13.2.99'
+            'typo3' => '12.4.0-13.2.99',
         ],
         'conflicts' => [],
         'suggests' => [],
