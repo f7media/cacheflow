@@ -20,6 +20,7 @@ use Doctrine\DBAL\Exception;
 use F7media\Cacheflow\Utility\CacheFlowUtility;
 use TYPO3\CMS\Core\Database\Connection;
 use TYPO3\CMS\Core\Database\ConnectionPool;
+use TYPO3\CMS\Core\Database\Query\Expression\CompositeExpression;
 use TYPO3\CMS\Core\Database\Query\Restriction\EndTimeRestriction;
 use TYPO3\CMS\Core\Database\Query\Restriction\StartTimeRestriction;
 
@@ -128,7 +129,7 @@ class PageRepository
         return $statement->executeQuery()->rowCount();
     }
 
-    protected function getAdditionalConstraint($queryBuilder): QueryBuilder {
+    protected function getAdditionalConstraint($queryBuilder): CompositeExpression {
         return $queryBuilder->expr()->or(
             $queryBuilder->expr()->neq('p.doktype', $queryBuilder->createNamedParameter(91, Connection::PARAM_INT)),
             $queryBuilder->expr()->eq('p.is_case_study', $queryBuilder->createNamedParameter(1, Connection::PARAM_INT)),
