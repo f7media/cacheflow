@@ -38,7 +38,8 @@ class PageRepository
             ->select('p.uid')->from('pages', 'p')
             ->orderBy('p.last_flowed', 'ASC')
             ->where(
-                $queryBuilder->expr()->notIn('p.doktype', $queryBuilder->createNamedParameter(CacheFlowUtility::EXCLUDED_DOKTYPES, ArrayParameterType::INTEGER))
+                $queryBuilder->expr()->notIn('p.doktype', $queryBuilder->createNamedParameter(CacheFlowUtility::EXCLUDED_DOKTYPES, ArrayParameterType::INTEGER)),
+                $this->getAdditionalConstraint($queryBuilder)
             )
             ->setMaxResults($amount);
         if ($excludedUids !== []) {
@@ -81,7 +82,8 @@ class PageRepository
                         $queryBuilder->expr()->lte('t.endtime', $queryBuilder->createNamedParameter($now, Connection::PARAM_INT)),
                     ),
                 ),
-                $queryBuilder->expr()->notIn('p.doktype', $queryBuilder->createNamedParameter(CacheFlowUtility::EXCLUDED_DOKTYPES, ArrayParameterType::INTEGER))
+                $queryBuilder->expr()->notIn('p.doktype', $queryBuilder->createNamedParameter(CacheFlowUtility::EXCLUDED_DOKTYPES, ArrayParameterType::INTEGER)),
+                $this->getAdditionalConstraint($queryBuilder)
             )->groupBy('p.uid')
             ->executeQuery()->fetchFirstColumn();
     }
@@ -124,5 +126,12 @@ class PageRepository
                 $queryBuilder->expr()->notIn('p.doktype', $queryBuilder->createNamedParameter(CacheFlowUtility::EXCLUDED_DOKTYPES, ArrayParameterType::INTEGER))
             );
         return $statement->executeQuery()->rowCount();
+    }
+
+    protected function getAdditionalConstraint($queryBuilder): QueryBuilder {
+        return $queryBuilder->expr()->or(
+            $queryBuilder->expr()->neq('p.doktype', $queryBuilder->createNamedParameter(91, Connection::PARAM_INT)),
+            $queryBuilder->expr()->eq('p.is_case_study', $queryBuilder->createNamedParameter(1, Connection::PARAM_INT)),
+        );
     }
 }
