@@ -109,6 +109,7 @@ class PageRepository
             ->orderBy('p.last_flowed', 'ASC')
             ->where(
                 $queryBuilder->expr()->notIn('p.doktype', $queryBuilder->createNamedParameter(CacheFlowUtility::EXCLUDED_DOKTYPES, ArrayParameterType::INTEGER)),
+                $this->getAdditionalConstraint($queryBuilder)
             );
         return $statement->executeQuery()->fetchOne();
     }
@@ -124,7 +125,8 @@ class PageRepository
             ->select('p.uid')->from('pages', 'p')
             ->orderBy('p.last_flowed', 'ASC')
             ->where(
-                $queryBuilder->expr()->notIn('p.doktype', $queryBuilder->createNamedParameter(CacheFlowUtility::EXCLUDED_DOKTYPES, ArrayParameterType::INTEGER))
+                $queryBuilder->expr()->notIn('p.doktype', $queryBuilder->createNamedParameter(CacheFlowUtility::EXCLUDED_DOKTYPES, ArrayParameterType::INTEGER)),
+                $this->getAdditionalConstraint($queryBuilder)
             );
         return $statement->executeQuery()->rowCount();
     }
