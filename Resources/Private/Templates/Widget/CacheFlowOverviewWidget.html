@@ -14,10 +14,22 @@
             <f:then>
                 <ul>
                     <f:for key="key" as="entry" each="{statistics}">
-                        <li><strong>
-                            <f:translate key="widget.statistics.{key}" extensionName="cacheflow"/>
-                        </strong>: {entry}
-                        </li>
+                        <f:if condition="{key} != pageStatuses">
+                            <li><strong>
+                                <f:translate key="widget.statistics.{key}" extensionName="cacheflow"/>
+                            </strong>: {entry}
+                            </li>
+                            <f:if condition="{key} == relevantPagesCount && {statistics.pageStatuses}">
+                                <ul>
+                                    <f:for as="status" each="{statistics.pageStatuses}">
+                                        <li><strong>
+                                            <f:translate key="widget.statistics.pageStatus{status.last_flow_status}" extensionName="cacheflow" default="[{status.last_flow_status}]"/>
+                                        </strong>: {status.count_status}
+                                        </li>
+                                    </f:for>
+                                </ul>
+                            </f:if>
+                        </f:if>
                     </f:for>
                 </ul>
             </f:then>
