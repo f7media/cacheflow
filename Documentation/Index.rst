@@ -13,7 +13,7 @@ Cacheflow
     f7media/cacheflow
 
 :Version:
-    1.0.3
+    1.1.0
 
 :Language:
     en
