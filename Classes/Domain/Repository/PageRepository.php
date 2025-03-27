@@ -86,12 +86,14 @@ class PageRepository
             ->executeQuery()->fetchFirstColumn();
     }
 
-    public function updatePageLastCacheStatus(int $pid): void
+    public function updatePageLastCacheStatus(int $pid, string $status = ''): void
     {
         $queryBuilder = (new ConnectionPool())->getConnectionForTable('pages')->createQueryBuilder();
         $queryBuilder->update('pages')
             ->where($queryBuilder->expr()->eq('uid', $queryBuilder->createNamedParameter($pid, Connection::PARAM_INT)))
-            ->set('last_flowed', time())->executeStatement();
+            ->set('last_flowed', time())
+            ->set('last_flow_status', $status)
+            ->executeStatement();
     }
 
     /**
@@ -124,5 +126,24 @@ class PageRepository
                 $queryBuilder->expr()->notIn('p.doktype', $queryBuilder->createNamedParameter(CacheFlowUtility::EXCLUDED_DOKTYPES, ArrayParameterType::INTEGER))
             );
         return $statement->executeQuery()->rowCount();
+    }
+
+    /**
+     * @throws Exception
+     */
+    public function getAllPageStatusStatistics(): array
+    {
+        $queryBuilder = (new ConnectionPool())->getConnectionForTable('pages')->createQueryBuilder();
+        $queryBuilder->getRestrictions()->removeByType(StartTimeRestriction::class)->removeByType(EndTimeRestriction::class);
+        $statement = $queryBuilder
+            // ->count('p.last_flow_status') // not used because here we can't use "as" for a nicer fieldname
+            ->selectLiteral('count(p.last_flow_status) AS count_status')
+            ->addSelect('p.last_flow_status')
+            ->from('pages', 'p')
+            ->where(
+                $queryBuilder->expr()->notIn('p.doktype', $queryBuilder->createNamedParameter(CacheFlowUtility::EXCLUDED_DOKTYPES, ArrayParameterType::INTEGER))
+            )
+            ->groupBy('p.last_flow_status');
+        return $statement->executeQuery()->fetchAllAssociative();
     }
 }

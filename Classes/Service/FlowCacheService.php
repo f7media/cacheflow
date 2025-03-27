@@ -40,23 +40,29 @@ class FlowCacheService
     {
         $pageRepository = GeneralUtility::makeInstance(PageRepository::class);
         foreach ($pages as $uid) {
-            $this->invalidateCacheForPage($uid);
-            $uri = $this->buildPageUri($uid);
-            if (is_string($uri)) {
-                $this->crawlPage($uri);
+            if ($this->invalidateCacheForPage($uid) !== false) {
+                $uri = $this->buildPageUri($uid);
+                $lastStatus = is_string($uri) ? (string)$this->crawlPage($uri) : 'URI_ERROR';
+            } else {
+                $lastStatus = 'FLUSH_ERROR';
             }
-
-            $pageRepository->updatePageLastCacheStatus($uid);
+            $pageRepository->updatePageLastCacheStatus($uid, $lastStatus);
         }
     }
 
     /**
      * @throws NoSuchCacheException
      */
-    protected function invalidateCacheForPage(int $pid): void
+    protected function invalidateCacheForPage(int $pid): bool
     {
-        $cacheManager = GeneralUtility::makeInstance(CacheManager::class);
-        $cacheManager->getCache('pages')->flushByTag('pageId_' . $pid);
+        try {
+            /** @var CacheManager $cacheManager */
+            $cacheManager = GeneralUtility::makeInstance(CacheManager::class);
+            $cacheManager->flushCachesByTag('pageId_' . $pid);
+        } catch (\Throwable $t) {
+            return false;
+        }
+        return true;
     }
 
     /**
@@ -65,11 +71,12 @@ class FlowCacheService
     protected function buildPageUri(int $pid): string|bool
     {
         $siteFinder = GeneralUtility::makeInstance(SiteFinder::class);
+        $corePageRepository = GeneralUtility::makeInstance(CorePageRepository::class);
+        $page = $corePageRepository->getPage($pid, true);
+
         try {
             $site = $siteFinder->getSiteByPageId($pid);
         } catch (SiteNotFoundException) {
-            $corePageRepository = GeneralUtility::makeInstance(CorePageRepository::class);
-            $page = $corePageRepository->getPage($pid, true);
             if (isset($page['sys_language_uid']) && $page['sys_language_uid'] > 0) {
                 $site = $siteFinder->getSiteByRootPageId($page['l10n_parent']);
             } else {
@@ -77,8 +84,17 @@ class FlowCacheService
             }
         }
 
+        $parameter = [];
+        try {
+            $language = $site->getLanguageById($page['sys_language_uid']);
+            $parameter['_language'] = $language->getLanguageId();
+        } catch (\InvalidArgumentException) {
+            // somehow the language is not valid for this site
+            return false;
+        }
+
         $router = $site->getRouter();
-        return (string)$router->generateUri($pid);
+        return (string)$router->generateUri($pid, $parameter);
     }
 
     protected function crawlPage(string $uri): int

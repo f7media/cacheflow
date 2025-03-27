@@ -69,7 +69,8 @@ class StatisticsService
             'averageExecutionTime' => $statistics['averageExecutionTime'],
         ];
         $pageRepository = GeneralUtility::makeInstance(PageRepository::class);
-        $roundRobin = CacheFlowUtility::estimateRoundRobin($pageRepository->getAllRelevantPages(), $statistics['currentBatchSize'], $statistics['averageExecutionTime']);
+        $countRelevantPages = $pageRepository->getAllRelevantPages();
+        $roundRobin = CacheFlowUtility::estimateRoundRobin($countRelevantPages, $statistics['currentBatchSize'], $statistics['averageExecutionTime']);
         if ($roundRobin > 3600) {
             $output['estimationH'] = gmdate('H:i:s', $roundRobin);
         } elseif ($roundRobin > 60) {
@@ -82,6 +83,10 @@ class StatisticsService
         if ($oldestFlowedPage > 0) {
             $output['oldestPage'] = date('d.m.Y H:i', $oldestFlowedPage);
         }
+
+        // new status statistics
+        $output['relevantPagesCount'] = $countRelevantPages;
+        $output['pageStatuses'] = $pageRepository->getAllPageStatusStatistics();
 
         return $output;
     }

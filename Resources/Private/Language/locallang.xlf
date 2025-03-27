@@ -46,6 +46,33 @@
                 <source>Estimated time for Round Robin (H:m:s)</source>
             </trans-unit>
 
+            <trans-unit id="widget.statistics.relevantPagesCount" resname="widget.statistics.relevantPagesCount" approved="yes">
+                <source>Total relevant pages</source>
+            </trans-unit>
+			<trans-unit id="widget.statistics.pageStatus" resname="widget.statistics.pageStatus" approved="yes">
+                <source>Status unknown</source>
+            </trans-unit>
+            <trans-unit id="widget.statistics.pageStatusFLUSH_ERROR" resname="widget.statistics.pageStatusURI_ERROR" approved="yes">
+                <source>Cache Flush Error</source>
+            </trans-unit>
+            <trans-unit id="widget.statistics.pageStatusURI_ERROR" resname="widget.statistics.pageStatusURI_ERROR" approved="yes">
+                <source>URI Error</source>
+            </trans-unit>
+            <trans-unit id="widget.statistics.pageStatus200" resname="widget.statistics.pageStatus200" approved="yes">
+                <source>200 (OK)</source>
+            </trans-unit>
+            <trans-unit id="widget.statistics.pageStatus401" resname="widget.statistics.pageStatus401" approved="yes">
+                <source>401 (Auth Required)</source>
+            </trans-unit>
+            <trans-unit id="widget.statistics.pageStatus404" resname="widget.statistics.pageStatus404" approved="yes">
+                <source>404 (Not Found)</source>
+            </trans-unit>
+            <trans-unit id="widget.statistics.pageStatus500" resname="widget.statistics.pageStatus500" approved="yes">
+                <source>500 (Internal Server Error)</source>
+            </trans-unit>
+            <trans-unit id="widget.statistics.pageStatus503" resname="widget.statistics.pageStatus503" approved="yes">
+                <source>503 (Service Unavailable)</source>
+            </trans-unit>
         </body>
     </file>
 </xliff>
