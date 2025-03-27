@@ -31,6 +31,10 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 class FlowCacheService
 {
+    public function __construct(
+        private readonly PageRepository $pageRepository,
+    ) {
+    }
     /**
      * @param mixed[] $pages
      * @throws NoSuchCacheException
@@ -38,7 +42,6 @@ class FlowCacheService
      */
     public function processPages(array $pages): void
     {
-        $pageRepository = GeneralUtility::makeInstance(PageRepository::class);
         foreach ($pages as $uid) {
             if ($this->invalidateCacheForPage($uid) !== false) {
                 $uri = $this->buildPageUri($uid);
@@ -46,7 +49,7 @@ class FlowCacheService
             } else {
                 $lastStatus = 'FLUSH_ERROR';
             }
-            $pageRepository->updatePageLastCacheStatus($uid, $lastStatus);
+            $this->pageRepository->updatePageLastCacheStatus($uid, $lastStatus);
         }
     }
 
