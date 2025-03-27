@@ -35,6 +35,8 @@ class FlowCacheCommand extends Command
 {
     public function __construct(
         private readonly FlowCacheService $flowCacheService,
+        private readonly PageRepository $pageRepository,
+        private readonly StatisticsService $statisticsService,
     ) {
         parent::__construct();
     }
@@ -55,19 +57,18 @@ class FlowCacheCommand extends Command
     {
         $startTime = microtime(true);
 
-        $pageRepository = GeneralUtility::makeInstance(PageRepository::class);
         $registry = GeneralUtility::makeInstance(Registry::class);
         $lastRun = (int)$registry->get('tx_cacheflow', 'FlowCacheCommand_lastRun', 0);
         $batchSize = ((int)$input->getArgument('batchSize') > 0) ? (int)$input->getArgument('batchSize') : 50;
 
-        $pagesWithChangedVisibility = $pageRepository->findPagesWhoseVisibilityHasJustChanged($lastRun);
+        $pagesWithChangedVisibility = $this->pageRepository->findPagesWhoseVisibilityHasJustChanged($lastRun);
         $fillUpSize = $batchSize - count($pagesWithChangedVisibility);
-        $fillUpPages = ($fillUpSize > 0) ? $pageRepository->fillupBatch($fillUpSize, $pagesWithChangedVisibility) : [];
+        $fillUpPages = ($fillUpSize > 0) ? $this->pageRepository->fillupBatch($fillUpSize, $pagesWithChangedVisibility) : [];
         $this->flowCacheService->processPages(array_merge($pagesWithChangedVisibility, $fillUpPages));
 
         $registry->set('tx_cacheflow', 'FlowCacheCommand_lastRun', date('U'));
         $executionTime = microtime(true) - $startTime;
-        (new StatisticsService())->updateStatisticsInRegistry($batchSize, $executionTime);
+        $this->statisticsService->updateStatisticsInRegistry($batchSize, $executionTime);
 
         $messagingOutput = [
             'Batch size' => $batchSize,

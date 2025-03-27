@@ -27,7 +27,9 @@ class StatisticsService
 {
     protected Registry $registry;
 
-    public function __construct()
+    public function __construct(
+        private readonly PageRepository $pageRepository,
+    )
     {
         $this->registry = GeneralUtility::makeInstance(Registry::class);
     }
@@ -68,8 +70,7 @@ class StatisticsService
             'lastCompletedRun' => date('d.m.Y H:i', (int)$statistics['lastCompletedRun']),
             'averageExecutionTime' => $statistics['averageExecutionTime'],
         ];
-        $pageRepository = GeneralUtility::makeInstance(PageRepository::class);
-        $countRelevantPages = $pageRepository->getAllRelevantPages();
+        $countRelevantPages = $this->pageRepository->getAllRelevantPages();
         $roundRobin = CacheFlowUtility::estimateRoundRobin($countRelevantPages, $statistics['currentBatchSize'], $statistics['averageExecutionTime']);
         if ($roundRobin > 3600) {
             $output['estimationH'] = gmdate('H:i:s', $roundRobin);
@@ -79,14 +80,14 @@ class StatisticsService
             $output['estimationS'] = $roundRobin;
         }
 
-        $oldestFlowedPage = $pageRepository->getOldestCachedPageInSystem();
+        $oldestFlowedPage = $this->pageRepository->getOldestCachedPageInSystem();
         if ($oldestFlowedPage > 0) {
             $output['oldestPage'] = date('d.m.Y H:i', $oldestFlowedPage);
         }
 
         // new status statistics
         $output['relevantPagesCount'] = $countRelevantPages;
-        $output['pageStatuses'] = $pageRepository->getAllPageStatusStatistics();
+        $output['pageStatuses'] = $this->pageRepository->getAllPageStatusStatistics();
 
         return $output;
     }
