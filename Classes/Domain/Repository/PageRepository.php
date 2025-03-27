@@ -47,13 +47,13 @@ class PageRepository
             ->select('p.uid')->from('pages', 'p')
             ->orderBy('p.last_flowed', 'ASC')
             ->where(
-                $queryBuilder->expr()->notIn('p.doktype', $queryBuilder->createNamedParameter(CacheFlowUtility::EXCLUDED_DOKTYPES, ArrayParameterType::INTEGER))
+                $queryBuilder->expr()->notIn('p.doktype', $queryBuilder->createNamedParameter(CacheFlowUtility::EXCLUDED_DOKTYPES, ArrayParameterType::INTEGER)),
+                $this->getAdditionalConstraint($queryBuilder)
             )
             ->setMaxResults($amount);
         if ($excludedUids !== []) {
             $statement->andWhere(
-                $queryBuilder->expr()->notIn('p.uid', $queryBuilder->createNamedParameter($excludedUids, ArrayParameterType::INTEGER)),
-                $this->getAdditionalConstraint($queryBuilder)
+                $queryBuilder->expr()->notIn('p.uid', $queryBuilder->createNamedParameter($excludedUids, ArrayParameterType::INTEGER))
             );
         }
 
@@ -135,7 +135,8 @@ class PageRepository
             ->select('p.uid')->from('pages', 'p')
             ->orderBy('p.last_flowed', 'ASC')
             ->where(
-                $queryBuilder->expr()->notIn('p.doktype', $queryBuilder->createNamedParameter(CacheFlowUtility::EXCLUDED_DOKTYPES, ArrayParameterType::INTEGER))
+                $queryBuilder->expr()->notIn('p.doktype', $queryBuilder->createNamedParameter(CacheFlowUtility::EXCLUDED_DOKTYPES, ArrayParameterType::INTEGER)),
+                $this->getAdditionalConstraint($queryBuilder)
             );
         return $statement->executeQuery()->rowCount();
     }
@@ -153,7 +154,8 @@ class PageRepository
             ->addSelect('p.last_flow_status')
             ->from('pages', 'p')
             ->where(
-                $queryBuilder->expr()->notIn('p.doktype', $queryBuilder->createNamedParameter(CacheFlowUtility::EXCLUDED_DOKTYPES, ArrayParameterType::INTEGER))
+                $queryBuilder->expr()->notIn('p.doktype', $queryBuilder->createNamedParameter(CacheFlowUtility::EXCLUDED_DOKTYPES, ArrayParameterType::INTEGER)),
+                $this->getAdditionalConstraint($queryBuilder)
             )
             ->groupBy('p.last_flow_status');
         return $statement->executeQuery()->fetchAllAssociative();
