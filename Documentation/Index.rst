@@ -19,7 +19,7 @@ Cacheflow
     en
 
 :Author:
-    David Nax | F7 Media GmbH
+    David Nax, Marc Willmann | `F7 Media GmbH <https://f7.de>`__
 
 :License:
     This document is published under the

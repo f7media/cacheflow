@@ -35,6 +35,43 @@ server and execute the task every minute (with no parallel execution allowed).
 
 Check the TYPO3 manual for :ref:`Adding or editing a task <typo3/cms-scheduler:adding-editing-task>`
 
+Event Dispatcher
+================
+
+The PageRepository dispatches an event which may be used to add AdditionalConstraints which pages should not be crawled. For this you should implement an EventListener for the Event AdditionalConstraintsEvent and provide the additionalConstraint there (which will be appended with logical AND to the given constraints)
+
+e.g.
+```<?php
+
+   namespace YourVendor\YourExtension\EventListener;
+
+   use TYPO3\CMS\Core\Attribute\AsEventListener;
+   use TYPO3\CMS\Core\Database\Connection;
+   use F7media\Cacheflow\Event\AdditionalConstraintsEvent;
+
+   #[AsEventListener(
+       identifier: 'yourextension/cacheflow-additional-constraint'
+   )]
+   final readonly class CacheFlowAdditionalConstraintEventListener
+   {
+       public function __invoke(AdditionalConstraintsEvent $event): void
+       {
+
+           $queryBuilder = $event->getQueryBuilder();
+
+           /* Don't flow pages from doctype 15 which are hidden in the menu */
+           // p.* are the properties of the pages table
+           $additionalConstraint = $queryBuilder->expr()->or(
+               $queryBuilder->expr()->neq('p.doktype', $queryBuilder->createNamedParameter(15, Connection::PARAM_INT)),
+               $queryBuilder->expr()->eq('p.nav_hide', $queryBuilder->createNamedParameter(1, Connection::PARAM_INT)),
+           );
+
+           $event->setAdditionalConstraint($additionalConstraint);
+       }
+   }
+`
+
+
 Dashboard widget
 ================
 
