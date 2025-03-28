@@ -164,7 +164,7 @@ class PageRepository
     protected function getAdditionalConstraint($queryBuilder): CompositeExpression {
 
         $additionalConstraint =  $queryBuilder->expr()->or(
-            $queryBuilder->expr()->eq(1, $queryBuilder->createNamedParameter(1, Connection::PARAM_INT))
+            $queryBuilder->expr()->neq('p.uid', $queryBuilder->createNamedParameter(-1, Connection::PARAM_INT))
         );
 
         /** @var DoingThisAndThatEvent $event */
