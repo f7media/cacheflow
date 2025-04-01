@@ -89,6 +89,10 @@ class StatisticsService
         $output['relevantPagesCount'] = $countRelevantPages;
         $output['pageStatuses'] = $this->pageRepository->getAllPageStatusStatistics();
 
+        // new status statistics
+        $output['relevantPagesCount'] = $countRelevantPages;
+        $output['pageStatuses'] = $this->pageRepository->getAllPageStatusStatistics();
+
         return $output;
     }
 }
