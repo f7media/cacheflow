@@ -9,9 +9,3 @@ services:
 
   F7media\Cacheflow\:
     resource: '../Classes/*'
-
-  F7media\Cacheflow\Command\FlowCacheCommand:
-    tags:
-      - name: 'console.command'
-        command: 'cacheflow:process'
-        description: 'Regenerates cached pages'

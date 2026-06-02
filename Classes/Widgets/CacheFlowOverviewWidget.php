@@ -20,7 +20,6 @@ namespace F7media\Cacheflow\Widgets;
 use F7media\Cacheflow\Service\StatisticsService;
 use Psr\Http\Message\ServerRequestInterface;
 use TYPO3\CMS\Backend\View\BackendViewFactory;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Dashboard\Widgets\RequestAwareWidgetInterface;
 use TYPO3\CMS\Dashboard\Widgets\WidgetConfigurationInterface;
 use TYPO3\CMS\Dashboard\Widgets\WidgetInterface;

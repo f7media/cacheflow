@@ -20,16 +20,17 @@ use Doctrine\DBAL\Exception;
 use F7media\Cacheflow\Event\AdditionalConstraintsEvent;
 use F7media\Cacheflow\Utility\CacheFlowUtility;
 use Psr\EventDispatcher\EventDispatcherInterface;
+use Symfony\Component\DependencyInjection\Attribute\Autoconfigure;
 use TYPO3\CMS\Core\Database\Connection;
 use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Database\Query\Expression\CompositeExpression;
+use TYPO3\CMS\Core\Database\Query\QueryBuilder;
 use TYPO3\CMS\Core\Database\Query\Restriction\EndTimeRestriction;
 use TYPO3\CMS\Core\Database\Query\Restriction\StartTimeRestriction;
 
 #[Autoconfigure(public: true)]
 class PageRepository
 {
-
     public function __construct(
         private readonly EventDispatcherInterface $eventDispatcher,
     ) {}
@@ -41,7 +42,7 @@ class PageRepository
      */
     public function fillUpBatch(int $amount, array $excludedUids): array
     {
-        $queryBuilder = (new ConnectionPool())->getConnectionForTable('pages')->createQueryBuilder();
+        $queryBuilder = new ConnectionPool()->getConnectionForTable('pages')->createQueryBuilder();
         $queryBuilder->getRestrictions()->removeByType(StartTimeRestriction::class)->removeByType(EndTimeRestriction::class);
         $statement = $queryBuilder
             ->select('p.uid')->from('pages', 'p')
@@ -66,7 +67,7 @@ class PageRepository
      */
     public function findPagesWhoseVisibilityHasJustChanged(int $lastRun): array
     {
-        $queryBuilder = (new ConnectionPool())->getConnectionForTable('pages')->createQueryBuilder();
+        $queryBuilder = new ConnectionPool()->getConnectionForTable('pages')->createQueryBuilder();
         $queryBuilder->getRestrictions()->removeAll();
         $now = date('U');
         return $queryBuilder
@@ -99,7 +100,7 @@ class PageRepository
 
     public function updatePageLastCacheStatus(int $pid, string $status = ''): void
     {
-        $queryBuilder = (new ConnectionPool())->getConnectionForTable('pages')->createQueryBuilder();
+        $queryBuilder = new ConnectionPool()->getConnectionForTable('pages')->createQueryBuilder();
         $queryBuilder->update('pages')
             ->where($queryBuilder->expr()->eq('uid', $queryBuilder->createNamedParameter($pid, Connection::PARAM_INT)))
             ->set('last_flowed', time())
@@ -112,7 +113,7 @@ class PageRepository
      */
     public function getOldestCachedPageInSystem(): int
     {
-        $queryBuilder = (new ConnectionPool())->getConnectionForTable('pages')->createQueryBuilder();
+        $queryBuilder = new ConnectionPool()->getConnectionForTable('pages')->createQueryBuilder();
         $queryBuilder->getRestrictions()->removeByType(StartTimeRestriction::class)->removeByType(EndTimeRestriction::class);
         $statement = $queryBuilder
             ->select('p.last_flowed')->from('pages', 'p')
@@ -129,7 +130,7 @@ class PageRepository
      */
     public function getAllRelevantPages(): int
     {
-        $queryBuilder = (new ConnectionPool())->getConnectionForTable('pages')->createQueryBuilder();
+        $queryBuilder = new ConnectionPool()->getConnectionForTable('pages')->createQueryBuilder();
         $queryBuilder->getRestrictions()->removeByType(StartTimeRestriction::class)->removeByType(EndTimeRestriction::class);
         $statement = $queryBuilder
             ->select('p.uid')->from('pages', 'p')
@@ -138,15 +139,16 @@ class PageRepository
                 $queryBuilder->expr()->notIn('p.doktype', $queryBuilder->createNamedParameter(CacheFlowUtility::EXCLUDED_DOKTYPES, ArrayParameterType::INTEGER)),
                 $this->getAdditionalConstraint($queryBuilder)
             );
-        return $statement->executeQuery()->rowCount();
+        return (int)$statement->executeQuery()->rowCount();
     }
 
     /**
+     * @return list<array<string, mixed>>
      * @throws Exception
      */
     public function getAllPageStatusStatistics(): array
     {
-        $queryBuilder = (new ConnectionPool())->getConnectionForTable('pages')->createQueryBuilder();
+        $queryBuilder = new ConnectionPool()->getConnectionForTable('pages')->createQueryBuilder();
         $queryBuilder->getRestrictions()->removeByType(StartTimeRestriction::class)->removeByType(EndTimeRestriction::class);
         $statement = $queryBuilder
             // ->count('p.last_flow_status') // not used because here we can't use "as" for a nicer fieldname
@@ -161,21 +163,20 @@ class PageRepository
         return $statement->executeQuery()->fetchAllAssociative();
     }
 
-    protected function getAdditionalConstraint($queryBuilder): CompositeExpression {
+    protected function getAdditionalConstraint(QueryBuilder $queryBuilder): CompositeExpression
+    {
 
         $additionalConstraint =  $queryBuilder->expr()->and(
             $queryBuilder->expr()->neq('p.uid', $queryBuilder->createNamedParameter(-1, Connection::PARAM_INT)),
             $queryBuilder->expr()->eq('p.t3ver_wsid', $queryBuilder->createNamedParameter(0, Connection::PARAM_INT))
         );
 
-        /** @var DoingThisAndThatEvent $event */
+        /** @var AdditionalConstraintsEvent $event */
         $event = $this->eventDispatcher->dispatch(
             new AdditionalConstraintsEvent($queryBuilder, $additionalConstraint),
         );
 
         return $event->getAdditionalConstraint();
-
-
 
     }
 }

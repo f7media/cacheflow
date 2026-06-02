@@ -21,8 +21,6 @@ use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
 class CalculationTest extends UnitTestCase
 {
-    protected bool $resetSingletonInstances = true;
-
     /**
      * @var array<string, array<string, int|float>|int>
      */
@@ -46,6 +44,9 @@ class CalculationTest extends UnitTestCase
         ],
         'expectedResult' => 57,
     ];
+
+    #[\Override]
+    protected bool $resetSingletonInstances = true;
 
     #[Test]
     public function validateRoundRobinCalculation(): void

@@ -33,8 +33,8 @@ class FlowCacheService
 {
     public function __construct(
         private readonly PageRepository $pageRepository,
-    ) {
-    }
+    ) {}
+
     /**
      * @param mixed[] $pages
      * @throws NoSuchCacheException
@@ -43,12 +43,13 @@ class FlowCacheService
     public function processPages(array $pages): void
     {
         foreach ($pages as $uid) {
-            if ($this->invalidateCacheForPage($uid) !== false) {
+            if ($this->invalidateCacheForPage($uid)) {
                 $uri = $this->buildPageUri($uid);
                 $lastStatus = is_string($uri) ? (string)$this->crawlPage($uri) : 'URI_ERROR';
             } else {
                 $lastStatus = 'FLUSH_ERROR';
             }
+
             $this->pageRepository->updatePageLastCacheStatus($uid, $lastStatus);
         }
     }
@@ -62,9 +63,10 @@ class FlowCacheService
             /** @var CacheManager $cacheManager */
             $cacheManager = GeneralUtility::makeInstance(CacheManager::class);
             $cacheManager->flushCachesByTag('pageId_' . $pid);
-        } catch (\Throwable $t) {
+        } catch (\Throwable) {
             return false;
         }
+
         return true;
     }
 
@@ -90,7 +92,7 @@ class FlowCacheService
         $parameter = [];
         try {
             $language = $site->getLanguageById($page['sys_language_uid']);
-            $parameter['_language'] = $language->getLanguageId();
+            $parameter['_language'] = $language->toArray()['languageId'];
         } catch (\InvalidArgumentException) {
             // somehow the language is not valid for this site
             return false;

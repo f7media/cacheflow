@@ -29,8 +29,7 @@ class StatisticsService
 
     public function __construct(
         private readonly PageRepository $pageRepository,
-    )
-    {
+    ) {
         $this->registry = GeneralUtility::makeInstance(Registry::class);
     }
 

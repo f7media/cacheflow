@@ -1,4 +1,7 @@
 <?php
+
+use TYPO3\TestingFramework\Core\Testbase;
+
 /*
  * This file is part of the TYPO3 CMS project.
  *
@@ -11,13 +14,12 @@
  *
  * The TYPO3 project - inspiring people to share!
  */
-
 /**
  * This file is defined in FunctionalTests.xml and called by phpunit
  * before instantiating the test suites.
  */
-(static function () {
-    $testbase = new \TYPO3\TestingFramework\Core\Testbase();
+(static function (): void {
+    $testbase = new Testbase();
     $testbase->defineOriginalRootPath();
     $testbase->createDirectory(ORIGINAL_ROOT . 'var/tests');
     $testbase->createDirectory(ORIGINAL_ROOT . 'var/transient');

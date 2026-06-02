@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace F7media\Cacheflow\Event;
 
 use TYPO3\CMS\Core\Database\Query\Expression\CompositeExpression;
@@ -7,7 +9,6 @@ use TYPO3\CMS\Core\Database\Query\QueryBuilder;
 
 final class AdditionalConstraintsEvent
 {
-
     public function __construct(
         private QueryBuilder $queryBuilder,
         private CompositeExpression $additionalConstraint,

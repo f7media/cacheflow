@@ -36,6 +36,7 @@ class RepositoryTest extends FunctionalTestCase
     /**
      * @var non-empty-string[]
      */
+    #[\Override]
     protected array $coreExtensionsToLoad = [
         'dashboard',
     ];
@@ -43,6 +44,7 @@ class RepositoryTest extends FunctionalTestCase
     /**
      * @var non-empty-string[] Have cacheflow loaded
      */
+    #[\Override]
     protected array $testExtensionsToLoad = [
         'typo3conf/ext/cacheflow',
     ];

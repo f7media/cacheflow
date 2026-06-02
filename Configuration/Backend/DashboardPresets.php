@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 return [
     'default' => [
         'title' => 'LLL:EXT:cacheflow/Resources/Private/Language/locallang.xlf:widgets.cacheflow.title',

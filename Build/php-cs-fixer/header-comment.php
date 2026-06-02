@@ -2,6 +2,9 @@
 
 declare(strict_types=1);
 
+use PhpCsFixer\Config;
+use PhpCsFixer\Finder;
+
 /*
  * This file is part of the TYPO3 CMS project.
  *
@@ -19,7 +22,7 @@ if (PHP_SAPI !== 'cli') {
     die('This script supports command line usage only. Please check your command.');
 }
 
-$finder = PhpCsFixer\Finder::create()
+$finder = Finder::create()
     ->name('*.php')
     ->in(__DIR__ . '/../../')
     ->exclude('Acceptance/Support/_generated') // EXT:core
@@ -54,7 +57,7 @@ LICENSE.txt file that was distributed with this source code.
 The TYPO3 project - inspiring people to share!
 COMMENT;
 
-return (new \PhpCsFixer\Config())
+return new Config()
     ->setRiskyAllowed(false)
     ->setRules([
         'no_extra_blank_lines' => true,
