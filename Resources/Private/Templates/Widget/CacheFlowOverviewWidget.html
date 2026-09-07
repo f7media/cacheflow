@@ -2,36 +2,41 @@
 <f:layout name="Widget/Widget"/>
 <f:section name="main">
     <div class="text-center">
-        <img src="{f:uri.resource(path: 'Icons/f7_cacheflow_logo.png', extensionName: 'cacheflow')}"
+        <img src="{f:uri.resource(path: 'Icons/f7cacheflow.svg', extensionName: 'cacheflow')}"
              class="widget-f7information-logo"
-             alt="CacheFlow Logo"/>
+             alt="CacheFlow Logo"
+             style="margin-block-end:8px"/>
     </div>
     <div class="widget-cacheflow-text">
-        <h2>
-            <f:translate key="widget.statistics.title" extensionName="cacheflow"/>
-        </h2>
         <f:if condition="{statistics}">
             <f:then>
-                <ul>
-                    <f:for key="key" as="entry" each="{statistics}">
-                        <f:if condition="{key} != pageStatuses">
-                            <li><strong>
-                                <f:translate key="widget.statistics.{key}" extensionName="cacheflow"/>
-                            </strong>: {entry}
-                            </li>
-                            <f:if condition="{key} == relevantPagesCount && {statistics.pageStatuses}">
-                                <ul>
-                                    <f:for as="status" each="{statistics.pageStatuses}">
-                                        <li><strong>
-                                            <f:translate key="widget.statistics.pageStatus{status.last_flow_status}" extensionName="cacheflow" default="[{status.last_flow_status}]"/>
-                                        </strong>: {status.count_status}
-                                        </li>
-                                    </f:for>
-                                </ul>
-                            </f:if>
-                        </f:if>
-                    </f:for>
-                </ul>
+                <div class="widget-table-wrapper" style="margin-block:0">
+                    <table class="widget-table table table-striped">
+                        <thead>
+                            <tr>
+                                <th colspan="2"><f:translate key="widget.statistics.title" extensionName="cacheflow"/></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <f:for key="key" as="entry" each="{statistics}">
+                                <f:if condition="{key} != pageStatuses">
+                                    <tr>
+                                        <td><f:translate key="widget.statistics.{key}" extensionName="cacheflow"/></td>
+                                        <td>{entry}</td>
+                                    </tr>
+                                    <f:if condition="{key} == relevantPagesCount && {statistics.pageStatuses}">
+                                        <f:for as="status" each="{statistics.pageStatuses}">
+                                            <tr>
+                                                <td>- <f:translate key="widget.statistics.pageStatus{status.last_flow_status}" extensionName="cacheflow" default="[{status.last_flow_status}]"/></td>
+                                                <td>{status.count_status}</td>
+                                            </tr>
+                                        </f:for>
+                                    </f:if>
+                                </f:if>
+                            </f:for>
+                        </tbody>
+                    </table>
+                </div>
             </f:then>
             <f:else>
                 <f:translate key="widget.statistics.no_data" extensionName="cacheflow"/>
