@@ -43,7 +43,7 @@ jobs:
           extensions: intl, mbstring, json, zip, curl
           tools: composer:v2
       - name: "Install tailor"
-        run: composer global require typo3/tailor --prefer-dist --no-progress --no-suggest
+        run: composer global require "typo3/tailor:^1.7" --prefer-dist --no-progress --no-suggest
       - name: "Publish to TER"
         run: |
           php ~/.composer/vendor/bin/tailor ter:publish --comment "${{ env.comment }}" ${{ env.version }}
