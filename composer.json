@@ -25,7 +25,6 @@
     "license": [
         "GPL-2.0-or-later"
     ],
-	"version": "2.1.1",
     "require": {
         "typo3/cms-core": "^14.3",
         "typo3/cms-backend": "^14.3",
@@ -66,7 +65,8 @@
         "typo3/cms": {
             "web-dir": ".Build/Web",
             "app-dir": ".Build",
-            "extension-key": "cacheflow"
+            "extension-key": "cacheflow",
+	        "version": "2.1.2"
         }
     }
 }
