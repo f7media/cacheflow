@@ -18,9 +18,11 @@ declare(strict_types=1);
 namespace F7media\Cacheflow\Service;
 
 use F7media\Cacheflow\Domain\Repository\PageRepository;
+use F7media\Cacheflow\Event\PageCacheRefreshRequestedEvent;
 use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Exception\ServerException;
 use GuzzleHttp\Exception\TooManyRedirectsException;
+use Psr\EventDispatcher\EventDispatcherInterface;
 use TYPO3\CMS\Core\Cache\CacheManager;
 use TYPO3\CMS\Core\Cache\Exception\NoSuchCacheException;
 use TYPO3\CMS\Core\Domain\Repository\PageRepository as CorePageRepository;
@@ -33,6 +35,7 @@ class FlowCacheService
 {
     public function __construct(
         private readonly PageRepository $pageRepository,
+        private readonly EventDispatcherInterface $eventDispatcher,
     ) {}
 
     /**
@@ -43,9 +46,20 @@ class FlowCacheService
     public function processPages(array $pages): void
     {
         foreach ($pages as $uid) {
-            if ($this->invalidateCacheForPage($uid)) {
-                $uri = $this->buildPageUri($uid);
-                $lastStatus = is_string($uri) ? (string)$this->crawlPage($uri) : 'URI_ERROR';
+            $uri = $this->buildPageUri($uid);
+
+            if (!is_string($uri)) {
+                $this->pageRepository->updatePageLastCacheStatus($uid, 'URI_ERROR');
+                continue;
+            }
+
+            $event = new PageCacheRefreshRequestedEvent($uid, $uri);
+            $this->eventDispatcher->dispatch($event);
+
+            if ($event->isHandled()) {
+                $lastStatus = (string)$event->getStatus();
+            } elseif ($this->invalidateCacheForPage($uid)) {
+                $lastStatus = (string)$this->crawlPage($uri);
             } else {
                 $lastStatus = 'FLUSH_ERROR';
             }
